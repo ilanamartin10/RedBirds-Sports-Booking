@@ -49,6 +49,8 @@ h3 {
 /* Hero Section */
 .hero {
     background: url(hero.png);
+    background-size: cover; 
+    background-position: center;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -83,7 +85,7 @@ h3 {
 
 .book .topmiddle {
     position: relative;
-    top: 50px; /* Moves title up */
+    top: 50px; 
     text-align: center;
     margin-bottom: 50px;
 }
@@ -117,10 +119,12 @@ h3 {
     width: 100%;
     height: 100vh;
     background-image: url('workout.png');
+    background-size: cover; 
+    background-position: center;
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 10px; /* Reduced padding to make everything closer */
+    padding: 10px; 
   }
   
   /* main title */
@@ -170,4 +174,51 @@ h3 {
     text-align: left;
     width: 60%; 
   }
+  
+/* mascot section */
+.mascot {
+    background: url(mascot.png);
+    background-size: cover; 
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    color: #fff;
+    font-size: 1.5rem;
+    position: relative;
+    padding-left: 20px; 
+  }
+  
+  /* text box */
+  .text-box {
+    width: 80%;
+    text-align: left;
+    margin-top: 100px; 
+  }
+  
+  /* title */
+  .text-box h1 {
+    font-size: 6rem;
+    text-transform: uppercase;
+    margin: 0; 
+  }
+  
+  /* subtitle */
+  .text-box .text {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    width: 40%;
+
+  }
+  
+  /* button */
+  .text-box .btn {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+}
+
   
