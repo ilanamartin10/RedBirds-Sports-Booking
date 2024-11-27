@@ -1,5 +1,6 @@
 /* General Styling */
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     font-family: Anton;
@@ -10,7 +11,9 @@ a {
     text-decoration: none;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin: 0;
 }
 
@@ -53,29 +56,29 @@ h1, h2, h3 {
 
 .bottomleft {
     position: absolute;
-    bottom: 20px; 
-    left: 20px; 
+    bottom: 20px;
+    left: 20px;
     text-align: left;
 }
 
 .bottomleft .line {
-    font-size: 8rem; 
-    line-height: 1.1; 
+    font-size: 8rem;
+    line-height: 1.1;
     margin: 0;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 /* To book section */
 .book {
     background: #EC1B2E;
-    height: 100vh; 
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
     padding: 20px;
     color: #fff;
     font-size: 1.5rem;
-    position: relative; 
+    position: relative;
 }
 
 .book .topmiddle {
@@ -86,10 +89,10 @@ h1, h2, h3 {
 }
 
 .book .topmiddle .line {
-    font-size: 5rem; 
-    line-height: 1.1; 
+    font-size: 5rem;
+    line-height: 1.1;
     margin: 0;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 .book .middle {
@@ -97,15 +100,74 @@ h1, h2, h3 {
     align-items: center;
     bottom: 250px;
     width: 60%; /* limits width of text box */
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
 }
 
 .book .buttons {
-    position: absolute; 
-    bottom: 50px; 
+    position: absolute;
+    bottom: 50px;
     display: flex;
     justify-content: center;
     gap: 80px; /* space between the buttons */
 }
 
-
+/* Workout section */
+.workout-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('workout.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 10px; /* Reduced padding to make everything closer */
+  }
+  
+  /* main title */
+  .main-title {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    font-size: 7rem;
+    color: #ec1b2e;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1.1; 
+    margin: 0;
+    max-width: 350px; 
+  }
+  
+  .subtitle {
+    position: absolute;
+    bottom: 5%; 
+    width: 40%; 
+    left: 5%;
+    font-size: 1.5rem; 
+    line-height: 1.5;
+  }
+  
+  .routine-table {
+    position: absolute;
+    top: 15%; 
+    right: 5%;
+    width: 45%; 
+    color: white;
+    border-spacing: 0 10px; 
+  }
+  
+  .routine-title {
+    font-size: 2.5rem; 
+    color: #EC1B2E;
+    padding-right: 30px; 
+    text-align: left;
+    vertical-align: top;
+    width: 40%; 
+  }
+  
+  .routine-description {
+    font-size: 1.3rem; 
+    line-height: 1.4; 
+    text-align: left;
+    width: 60%; 
+  }
+  
