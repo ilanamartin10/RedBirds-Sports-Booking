@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redbird Bookings - Register</title>
+    <title>Redbird Bookings - Sign In</title>
     <link href="https://fonts.googleapis.com/css?family=Anton|Open+Sans" rel="stylesheet">
     <style>
         body {
-            background-image: url('background.png'); /* Background image */
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
+            background-image: url('background.png'); /* Same background for both pages */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Prevents the background from resizing on scroll or height change */
             margin: 0;
             padding: 0;
-            color: white; /* General text color */
+            font-family: Arial, sans-serif;
+            color: white;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Full viewport height */
+            min-height: 100vh; /* Forces the container to occupy the full viewport height */
             text-align: center;
         }
+
         .logo img {
             width: 150px; /* Adjusted logo size */
             margin-bottom: 20px;
+            margin-top: -145px;
         }
         h1 {
             font-family: 'Anton', sans-serif;
@@ -42,20 +45,12 @@
             align-items: center;
             gap: 20px; /* Spacing between fields */
         }
-        .row {
-            display: flex;
-            justify-content: space-between; /* Add equal spacing between First and Last Name */
-            width: 100%;
-            gap: 50px; /* Increased spacing between First Name and Last Name fields */
-            max-width: 630px;
-        }
-        .row .form-group {
-            flex: 1; /* Equal width for both First and Last Name fields */
-        }
         .form-group {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            width: 100%; /* Full width for fields */
+            max-width: 630px; /* Align with the register page width */
         }
         .form-group label {
             font-family: 'Open Sans', sans-serif;
@@ -72,11 +67,6 @@
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for individual boxes */
             background-color: white; /* Ensure the fields stand out */
         }
-        .full-width {
-            width: 100%; /* Take up the full width of the row */
-            max-width: 630px; /* Align stacked fields with the First/Last Name row width */
-        }
-
         button {
             background-color: red;
             color: white;
@@ -94,6 +84,20 @@
         button:hover {
             background-color: darkred;
         }
+        .footer {
+            margin-top: 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            color: white;
+        }
+        .footer a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -101,34 +105,21 @@
         <div class="logo">
             <img src="logo_no_bg.png" alt="Redbird Bookings Logo">
         </div>
-        <h1>Register</h1>
-        <form action="register_submit.php" method="post">
-            <!-- First Name and Last Name Row -->
-            <div class="row">
-                <div class="form-group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name" placeholder="*required" required>
-                </div>
-                <div class="form-group">
-                    <label for="last_name">Last Name </label>
-                    <input type="text" id="last_name" name="last_name" placeholder="*required" required>
-                </div>
-            </div>
-            <!-- Stacked Fields -->
-            <div class="form-group full-width">
+        <h1>Sign In</h1>
+        <form action="login_submit.php" method="post">
+            <div class="form-group">
                 <label for="email">McGill Email Address</label>
                 <input type="email" id="email" name="email" placeholder="*required" required>
             </div>
-            <div class="form-group full-width">
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="*required" required>
             </div>
-            <div class="form-group full-width">
-                <label for="confirm_password">Re-enter Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="*required" required>
-            </div>
-            <button type="submit">Register</button>
+            <button type="submit">Log In</button>
         </form>
+        <div class="footer">
+            Don't have an account? <a href="register.php">Sign up here</a>
+        </div>
     </div>
 </body>
 </html>
