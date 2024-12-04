@@ -1,0 +1,195 @@
+/* Event Polling Page Styles */
+
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #ffffff;
+}
+
+/* Header Section */
+header {
+    background-color: #000000; /* Black background */
+    padding: 20px 0;
+    font-size: 25px;
+}
+
+header .logo img {
+    width: 200px;
+    height: 160px;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+nav .nav-link {
+    color: #ffffff;
+    margin-left: 20px;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+nav .nav-link:hover {
+    color: #ec1b2e; /* Bright red on hover */
+}
+
+/* Login and Sign-Up Buttons */
+.login-btn {
+    background-color: #000000;
+    color: #ec1b2e;
+    border-radius: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+}
+
+.signup-btn {
+    background-color: #ec1b2e;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 12px;
+    text-decoration: none;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+/* Adjusted spacing for the nav links */
+nav .nav-link:last-child {
+    margin-right: 0;
+}
+
+nav .nav-link.signup-btn {
+    margin-left: 10px;
+}
+
+/* Hero Section */
+.event-hero-section {
+    background-color: #ec1b2e; /* Bright red background */
+    padding: 100px 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.event-hero-section h1 {
+    font-size: 72px;
+    font-weight: bold;
+}
+
+.event-hero-section p {
+    font-size: 24px;
+    margin-top: 20px;
+}
+/* Title Section */
+.title-section {
+    background-color: #ec1b2e; /* Bright red background */
+    padding: 100px 20px;
+}
+
+.title-section h1 {
+    font-size: 72px;
+    font-weight: bold;
+}
+
+.title-section p {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+/* Category Grid */
+.category-card {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.category-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.category-card .card-body {
+    background-color: #000000;
+}
+
+.category-card .card-title {
+    color: #ffffff;
+    font-size: 1.25rem;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    color: #ec1b2e;
+    font-weight: bold;
+}
+
+.list-group-item {
+    background-color: #f8f9fa;
+    color: #000000;
+    border: 1px solid #dee2e6;
+}
+
+.btn-danger {
+    background-color: #ec1b2e;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #cc0000;
+}
+
+@media (max-width: 768px) {
+    .event-hero-section h1 {
+        font-size: 48px;
+    }
+
+    .event-hero-section p {
+        font-size: 20px;
+    }
+
+    .event-form-container {
+        padding: 20px;
+    }
+
+    .poll-details, .poll-container {
+        padding: 0;
+    }
+
+    nav .nav-link {
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    .login-btn, .signup-btn {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+}
