@@ -48,7 +48,7 @@ h3 {
 
 /* Hero Section */
 .hero {
-    background: url(hero.png);
+    background: url(../images/hero.png);
     background-size: cover; 
     background-position: center;
     height: 100vh;
@@ -118,7 +118,7 @@ h3 {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-image: url('workout.png');
+    background-image: url('../images/workout.png');
     background-size: cover; 
     background-position: center;
     background-size: cover;
@@ -177,7 +177,7 @@ h3 {
   
 /* mascot section */
 .mascot {
-    background: url(mascot.png);
+    background: url(../images/mascot.png);
     background-size: cover; 
     background-position: center;
     height: 100vh;
