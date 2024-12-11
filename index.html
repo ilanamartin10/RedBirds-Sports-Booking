@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <!-- Replace 'logo.png' with your actual logo image path -->
-                    <img src="logo.png" alt="RedBird Bookings Logo" width="50" height="50">
+                    <img src="logoo.png" alt="RedBird Bookings Logo" width="50" height="50">
                 </div>
                 <nav>
                     <ul class="nav">
@@ -109,6 +109,12 @@
                             </div>
                         </div>
 
+                        <!-- Date Selection -->
+                        <div class="mb-3">
+                            <label for="bookingDate" class="form-label">Select Date</label>
+                            <input type="date" id="bookingDate" name="bookingDate" class="form-control" required>
+                        </div>
+
                         <!-- Start Time Selection -->
                         <div class="mb-3">
                             <label for="startTime" class="form-label">Start Time</label>
@@ -143,31 +149,29 @@
         </div>
     </div>
 
-    <!-- Other modals (Games, Workout) remain unchanged -->
-
     <!-- Bootstrap JS Bundle (includes Popper.js) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Elements
             const courtImages = document.querySelectorAll(".court-option");
             const startTimeDropdown = document.getElementById("startTime");
             const durationInput = document.getElementById("bookingDuration");
             const decreaseButton = document.getElementById("decreaseDuration");
             const increaseButton = document.getElementById("increaseDuration");
             const submitButton = document.querySelector("button[type='submit']");
-            const form = document.querySelector("form");
-
-            let selectedCourt = null; // Track selected court
-
+            const bookingDateInput = document.getElementById("bookingDate");
+            const modals = document.querySelectorAll(".modal");
+            const closeModalButtons = document.querySelectorAll(".btn-close");
+            const modalTriggers = document.querySelectorAll("[data-bs-toggle='modal']");
+    
             // Populate the start time dropdown (15-minute increments between 7:00 AM and 9:00 PM)
             const populateStartTimeDropdown = () => {
                 const startTime = new Date();
                 startTime.setHours(7, 0, 0, 0); // Start at 7:00 AM
                 const endTime = new Date();
                 endTime.setHours(21, 0, 0, 0); // End at 9:00 PM
-
+    
                 while (startTime <= endTime) {
                     const timeOption = document.createElement("option");
                     const hours = startTime.getHours();
@@ -176,23 +180,17 @@
                     timeOption.value = formattedTime;
                     timeOption.textContent = formattedTime;
                     startTimeDropdown.appendChild(timeOption);
-
+    
                     // Increment by 15 minutes
-                    startTime.setMinutes(startTime.getMinutes() + 15);
+                    startTime.setMinutes(startTime.getMinutes() + 30);
                 }
             };
-
+    
             // Court selection functionality
             courtImages.forEach((image) => {
                 image.addEventListener("click", function () {
-                    // Deselect other courts
                     courtImages.forEach((img) => img.classList.remove("selected"));
-
-                    // Select clicked court
                     this.classList.add("selected");
-                    selectedCourt = this.getAttribute("data-court");
-
-                    // Enable start time and duration fields
                     startTimeDropdown.disabled = false;
                     durationInput.disabled = false;
                     decreaseButton.disabled = false;
@@ -200,7 +198,17 @@
                     submitButton.disabled = false;
                 });
             });
-
+    
+            // Date picker logic
+            const setDateRange = () => {
+                const today = new Date();
+                const maxDate = new Date();
+                maxDate.setDate(today.getDate() + 2); // Allow 2 days in advance
+    
+                bookingDateInput.min = today.toISOString().split("T")[0];
+                bookingDateInput.max = maxDate.toISOString().split("T")[0];
+            };
+    
             // Decrease duration
             decreaseButton.addEventListener("click", function () {
                 let currentValue = parseInt(durationInput.value, 10);
@@ -208,7 +216,7 @@
                     durationInput.value = currentValue - 15;
                 }
             });
-
+    
             // Increase duration
             increaseButton.addEventListener("click", function () {
                 let currentValue = parseInt(durationInput.value, 10);
@@ -216,17 +224,38 @@
                     durationInput.value = currentValue + 15;
                 }
             });
-
-            // Submit the form (on button click)
-            form.addEventListener("submit", function (e) {
-                e.preventDefault();
-                // Add additional form submission logic
+    
+            // Modal functionality
+            modalTriggers.forEach((trigger) => {
+                trigger.addEventListener("click", function () {
+                    const targetModalId = trigger.getAttribute("data-bs-target").substring(1);
+                    const targetModal = document.getElementById(targetModalId);
+                    targetModal.style.display = "block";
+                    targetModal.classList.add("show");
+                });
             });
-
-            // Populate the start time dropdown on modal open
+    
+            closeModalButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const modal = button.closest(".modal");
+                    modal.style.display = "none";
+                    modal.classList.remove("show");
+                });
+            });
+    
+            window.addEventListener("click", function (event) {
+                modals.forEach((modal) => {
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                        modal.classList.remove("show");
+                    }
+                });
+            });
+    
+            // Initialize date range and populate dropdown
+            setDateRange();
             populateStartTimeDropdown();
         });
     </script>
 
 </body>
-</html>
