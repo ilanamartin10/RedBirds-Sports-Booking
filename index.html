@@ -132,10 +132,10 @@
                                     type="number" 
                                     id="bookingDuration" 
                                     class="form-control text-center" 
-                                    value="15" 
-                                    min="15" 
+                                    value="30" 
+                                    min="30" 
                                     max="120" 
-                                    step="15" 
+                                    step="30" 
                                     readonly>
                                 <button type="button" id="increaseDuration" class="btn btn-outline-secondary" disabled>+</button>
                             </div>
@@ -165,7 +165,7 @@
             const closeModalButtons = document.querySelectorAll(".btn-close");
             const modalTriggers = document.querySelectorAll("[data-bs-toggle='modal']");
     
-            // Populate the start time dropdown (15-minute increments between 7:00 AM and 9:00 PM)
+            // Populate the start time dropdown (30-minute increments between 7:00 AM and 9:00 PM)
             const populateStartTimeDropdown = () => {
                 const startTime = new Date();
                 startTime.setHours(7, 0, 0, 0); // Start at 7:00 AM
@@ -181,7 +181,7 @@
                     timeOption.textContent = formattedTime;
                     startTimeDropdown.appendChild(timeOption);
     
-                    // Increment by 15 minutes
+                    // Increment by 30 minutes
                     startTime.setMinutes(startTime.getMinutes() + 30);
                 }
             };
@@ -212,8 +212,8 @@
             // Decrease duration
             decreaseButton.addEventListener("click", function () {
                 let currentValue = parseInt(durationInput.value, 10);
-                if (currentValue > 15) {
-                    durationInput.value = currentValue - 15;
+                if (currentValue > 30) {
+                    durationInput.value = currentValue - 30;
                 }
             });
     
@@ -221,7 +221,7 @@
             increaseButton.addEventListener("click", function () {
                 let currentValue = parseInt(durationInput.value, 10);
                 if (currentValue < 120) {
-                    durationInput.value = currentValue + 15;
+                    durationInput.value = currentValue + 30;
                 }
             });
     
