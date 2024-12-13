@@ -256,6 +256,19 @@
             setDateRange();
             populateStartTimeDropdown();
         });
+
+        app.get('/available-times', async (req, res) => {
+        const { courtId, bookingDate } = req.query;
+        const bookedSlots = await db.query(`
+            SELECT time_slot FROM court_bookings
+            WHERE court_id = ? AND booking_date = ?`, [courtId, bookingDate]);
+        
+        const allSlots = generateAllTimeSlots(); // Generate all time slots (e.g., 7:00 AM to 9:00 PM).
+        const availableSlots = allSlots.filter(slot => 
+            !bookedSlots.map(bs => bs.time_slot).includes(slot));
+        
+        res.json(availableSlots);
+});
     </script>
 
 </body>

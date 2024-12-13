@@ -202,44 +202,179 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container-fluid">
-        <!-- Left Section -->
-        <div class="left">
-            <div class="profile-pic">
-                <img src="picture_placeholder.png" alt="Profile Picture">
-            </div>
-            <h1>Mirek Bourdeau <span class="age">(22)</span></h1>
-            <ul>
-                <li>📧 Email Address: mbourdeau14@outlook.com</li>
-                <li>⚽ Favorite Sports: Tennis, Basketball</li>
-                <li>🎓 Major: Computer Science</li>
-                <li>📜 Minor: Physics</li>
-            </ul>
-            <button class="btn btn-dark">Find a Partner</button>
+    <!-- Main Content -->
+<div class="container-fluid">
+    <!-- Left Section -->
+    <div class="left">
+        <div class="profile-pic">
+            <img src="picture_placeholder.png" alt="Profile Picture">
         </div>
+        <h1 id="profileName">Mirek Bourdeau <span class="age">(22)</span></h1>
+        <ul>
+            <li>📧 Email Address: mbourdeau14@outlook.com</li>
+            <li>⚽ Favorite Sports: <span id="favoriteSportsDisplay">Tennis, Basketball</span></li>
+            <li>🎓 Major: <span id="majorDisplay">Computer Science</span></li>
+            <li>📜 Minor: <span id="minorDisplay">Physics</span></li>
+        </ul>
+        <button class="btn btn-dark">Find a Partner</button>
+    </div>
 
-        <!-- Right Section -->
-        <div class="right">
-            <h2>About Me</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-                lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod
-                malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras
-                venenatis euismod malesuada.
-            </p>
-            <div class="btn-group">
-                <button class="btn">Due Rentals</button>
-                <button class="btn">Upcoming Sessions</button>
-                <button class="btn">Event Polling</button>
+    <!-- Right Section -->
+    <div class="right">
+        <h2>About Me</h2>
+        <p id="aboutMeDisplay">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+            lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod
+            malesuada.
+        </p>
+        <div class="btn-group">
+            <button class="btn">Due Rentals</button>
+            <button class="btn">Upcoming Sessions</button>
+            <button class="btn">Event Polling</button>
+        </div>
+        <div class="social-icons" id="socialLinksDisplay">
+            <a href="#" id="facebookLink" class="me-2"><i class="fa fa-facebook"></i></a>
+            <a href="#" id="twitterLink" class="me-2"><i class="fa fa-twitter"></i></a>
+            <a href="#" id="instagramLink" class="me-2"><i class="fa fa-instagram"></i></a>
+            <a href="#" id="linkedinLink"><i class="fa fa-linkedin"></i></a>
+        </div>
+    </div>
+</div>
+
+    <!-- Add the "Edit Profile" button -->
+<button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
+
+<!-- Add a modal for editing profile -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="social-icons">
-                <i class="fa fa-instagram"></i>
-                <i class="fa fa-twitter"></i>
-                <i class="fa fa-facebook"></i>
-                <i class="fa fa-linkedin"></i>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="mb-3">
+                        <label for="favoriteSports" class="form-label">Favorite Sports</label>
+                        <input type="text" id="favoriteSports" class="form-control" placeholder="e.g., Tennis, Basketball">
+                    </div>
+                    <div class="mb-3">
+                        <label for="major" class="form-label">Major</label>
+                        <input type="text" id="major" class="form-control" placeholder="e.g., Computer Science">
+                    </div>
+                    <div class="mb-3">
+                        <label for="minor" class="form-label">Minor</label>
+                        <input type="text" id="minor" class="form-control" placeholder="e.g., Physics">
+                    </div>
+                    <div class="mb-3">
+                        <label for="aboutMe" class="form-label">About Me</label>
+                        <textarea id="aboutMe" class="form-control" rows="3" placeholder="Write about yourself..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="socialLinks" class="form-label">Social Media Links</label>
+                        <input type="url" id="facebook" class="form-control mb-2" placeholder="Facebook URL">
+                        <input type="url" id="twitter" class="form-control mb-2" placeholder="Twitter URL">
+                        <input type="url" id="instagram" class="form-control mb-2" placeholder="Instagram URL">
+                        <input type="url" id="linkedin" class="form-control" placeholder="LinkedIn URL">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const editProfileBtn = document.getElementById("editProfileBtn");
+        const editProfileModal = document.getElementById("editProfileModal");
+
+        if (!editProfileBtn || !editProfileModal) {
+            console.error("Required elements are missing!");
+            return;
+        }
+
+        // Initialize modal
+        const bootstrapModal = new bootstrap.Modal(editProfileModal);
+
+        // Add event listener for the "Edit Profile" button
+        editProfileBtn.addEventListener("click", () => {
+            bootstrapModal.show();
+        });
+
+        // Handle form submission
+        const form = document.getElementById("editProfileForm");
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                // Gather updated values
+                const favoriteSports = document.getElementById("favoriteSports").value;
+                const major = document.getElementById("major").value;
+                const minor = document.getElementById("minor").value;
+                const aboutMe = document.getElementById("aboutMe").value;
+                const socialLinks = {
+                    facebook: document.getElementById("facebook").value,
+                    twitter: document.getElementById("twitter").value,
+                    instagram: document.getElementById("instagram").value,
+                    linkedin: document.getElementById("linkedin").value
+                };
+
+                // Update the DOM
+                document.getElementById("favoriteSportsDisplay").textContent = favoriteSports;
+                document.getElementById("majorDisplay").textContent = major;
+                document.getElementById("minorDisplay").textContent = minor;
+                document.getElementById("aboutMeDisplay").textContent = aboutMe;
+
+                // Update social links
+                document.getElementById("facebookLink").href = socialLinks.facebook || "#";
+                document.getElementById("twitterLink").href = socialLinks.twitter || "#";
+                document.getElementById("instagramLink").href = socialLinks.instagram || "#";
+                document.getElementById("linkedinLink").href = socialLinks.linkedin || "#";
+
+                // Close the modal
+                bootstrapModal.hide();
+            });
+        } else {
+            console.error("Edit Profile form not found!");
+        }
+    });
+</script>
+<script>
+    app.post('/update-profile', async (req, res) => {
+    const { userId, favoriteSports, major, minor, aboutMe, socialLinks } = req.body;
+
+    await db.query(`
+        UPDATE users
+        SET favorite_sports = ?, major = ?, minor = ?, about_me = ?,
+            facebook_url = ?, twitter_url = ?, instagram_url = ?, linkedin_url = ?
+        WHERE id = ?`,
+        [favoriteSports, major, minor, aboutMe,
+         socialLinks.facebook, socialLinks.twitter,
+         socialLinks.instagram, socialLinks.linkedin, userId]
+    );
+
+    res.status(200).send({ message: "Profile updated successfully!" });
+});
+</script>
+
+<script>
+    fetch('/update-profile', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        favoriteSports, major, minor, aboutMe, socialLinks
+    }),
+})
+    .then(response => response.json())
+    .then(data => {
+        console.log("Profile updated successfully", data);
+    })
+    .catch(error => {
+        console.error("Error updating profile:", error);
+    });
+</script>
 </body>
 </html>
