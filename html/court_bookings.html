@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RedBird Bookings - Equipment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/styles/court_bookings.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <!-- Replace 'logo.png' with your actual logo image path -->
+                    <img src="../assets/images/logo.png" alt="RedBird Bookings Logo" width="50" height="50">
+                </div>
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Features</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">About</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link login-btn" href="#">Log In</a></li>
+                        <li class="nav-item"><a class="nav-link signup-btn" href="#">Sign Up</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Title Section -->
+        <section class="title-section text-center text-white">
+            <h1 class="display-4">COURT BOOKINGS</h1>
+            <p class="lead">Select a Court</p>
+        </section>
+
+        <!-- Category Grid -->
+        <section class="category-grid container my-5">
+            <div class="row g-4">
+                <!-- Category 1: Courts -->
+                <div class="col-md-4">
+                    <div class="card category-card" data-bs-toggle="modal" data-bs-target="#ballsModal">
+                        <img src="../assets/images/courts.jpg" class="card-img-top" alt="Balls">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Court Bookings</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Category 2: PT -->
+                <div class="col-md-4">
+                    <div class="card category-card" data-bs-toggle="modal" data-bs-target="#gamesModal">
+                        <img src="../assets/images/training.jpg" class="card-img-top" alt="Games">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Personal Training</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Category 3: Pods -->
+                <div class="col-md-4">
+                    <div class="card category-card" data-bs-toggle="modal" data-bs-target="#workoutModal">
+                        <img src="../assets/images/fitness_pods.jpg" class="card-img-top" alt="Workout/Training Equipment">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Pods</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- Balls Modal -->
+    <div class="modal fade" id="ballsModal" tabindex="-1" aria-labelledby="ballsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ballsModalLabel">Court Booking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+                    <form>
+                        <!-- Court Selection -->
+                        <div class="mb-3">
+                            <label class="form-label">Select Court</label>
+                            <div class="d-flex justify-content-around">
+                                <!-- Tennis Court -->
+                                <div>
+                                    <img src="../assets/images/tennis.jpg" alt="Tennis Court" class="img-thumbnail court-option" data-court="Tennis" width="150">
+                                    <div class="text-center mt-2">
+                                        <input type="radio" name="courtType" value="Tennis" id="tennisCourt" required hidden>
+                                        <label for="tennisCourt">Tennis Court</label>
+                                    </div>
+                                </div>
+                                <!-- Squash Court -->
+                                <div>
+                                    <img src="../assets/images/squash.jpg" alt="Squash Court" class="img-thumbnail court-option" data-court="Squash" width="150">
+                                    <div class="text-center mt-2">
+                                        <input type="radio" name="courtType" value="Squash" id="squashCourt" required hidden>
+                                        <label for="squashCourt">Squash Court</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start Time Selection -->
+                        <div class="mb-3">
+                            <label for="startTime" class="form-label">Start Time</label>
+                            <select id="startTime" name="startTime" class="form-control" required disabled>
+                                <!-- Options populated via JavaScript -->
+                            </select>
+                        </div>
+
+                        <!-- Duration -->
+                        <div class="mb-3">
+                            <label for="bookingDuration" class="form-label">Duration (minutes):</label>
+                            <div class="duration-wrapper">
+                                <button type="button" id="decreaseDuration" class="btn btn-outline-secondary" disabled>-</button>
+                                <input 
+                                    type="number" 
+                                    id="bookingDuration" 
+                                    class="form-control text-center" 
+                                    value="15" 
+                                    min="15" 
+                                    max="120" 
+                                    step="15" 
+                                    readonly>
+                                <button type="button" id="increaseDuration" class="btn btn-outline-secondary" disabled>+</button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-danger w-100" disabled>Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other modals (Games, Workout) remain unchanged -->
+
+    <!-- Bootstrap JS Bundle (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Elements
+            const courtImages = document.querySelectorAll(".court-option");
+            const startTimeDropdown = document.getElementById("startTime");
+            const durationInput = document.getElementById("bookingDuration");
+            const decreaseButton = document.getElementById("decreaseDuration");
+            const increaseButton = document.getElementById("increaseDuration");
+            const submitButton = document.querySelector("button[type='submit']");
+            const form = document.querySelector("form");
+
+            let selectedCourt = null; // Track selected court
+
+            // Populate the start time dropdown (15-minute increments between 7:00 AM and 9:00 PM)
+            const populateStartTimeDropdown = () => {
+                const startTime = new Date();
+                startTime.setHours(7, 0, 0, 0); // Start at 7:00 AM
+                const endTime = new Date();
+                endTime.setHours(21, 0, 0, 0); // End at 9:00 PM
+
+                while (startTime <= endTime) {
+                    const timeOption = document.createElement("option");
+                    const hours = startTime.getHours();
+                    const minutes = startTime.getMinutes();
+                    const formattedTime = `${hours % 12 || 12}:${minutes.toString().padStart(2, "0")} ${hours < 12 ? "AM" : "PM"}`;
+                    timeOption.value = formattedTime;
+                    timeOption.textContent = formattedTime;
+                    startTimeDropdown.appendChild(timeOption);
+
+                    // Increment by 15 minutes
+                    startTime.setMinutes(startTime.getMinutes() + 15);
+                }
+            };
+
+            // Court selection functionality
+            courtImages.forEach((image) => {
+                image.addEventListener("click", function () {
+                    // Deselect other courts
+                    courtImages.forEach((img) => img.classList.remove("selected"));
+
+                    // Select clicked court
+                    this.classList.add("selected");
+                    selectedCourt = this.getAttribute("data-court");
+
+                    // Enable start time and duration fields
+                    startTimeDropdown.disabled = false;
+                    durationInput.disabled = false;
+                    decreaseButton.disabled = false;
+                    increaseButton.disabled = false;
+                    submitButton.disabled = false;
+                });
+            });
+
+            // Decrease duration
+            decreaseButton.addEventListener("click", function () {
+                let currentValue = parseInt(durationInput.value, 10);
+                if (currentValue > 15) {
+                    durationInput.value = currentValue - 15;
+                }
+            });
+
+            // Increase duration
+            increaseButton.addEventListener("click", function () {
+                let currentValue = parseInt(durationInput.value, 10);
+                if (currentValue < 120) {
+                    durationInput.value = currentValue + 15;
+                }
+            });
+
+            // Submit the form (on button click)
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                // Add additional form submission logic
+            });
+
+            // Populate the start time dropdown on modal open
+            populateStartTimeDropdown();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to right, white 0%, white 40%, #ec1b2e 40%, #ec1b2e 100% );
+}
+
+/* Header Section */
+header {
+    background-color: #000000; /* Black background */
+    padding: 20px 0;
+    font-size: 25px;
+}
+
+.logo img {
+    width: 200px;
+    height: 160px;
+}
+
+nav .nav-link {
+    color: #ffffff;
+    margin-left: 20px;
+    transition: color 0.3s;
+}
+
+nav .nav-link:hover {
+    color: #ec1b2e; /* Bright red on hover */
+}
+
+.login-btn {
+    background-color: #000000;
+    color: #ec1b2e;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.signup-btn {
+    background-color: #ec1b2e;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+/* Split the screen in half */
+.split {
+    height: 80%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Control the left side */
+  .left {
+    left: 0;
+    background-color: #111;
+  }
+  
+  /* Control the right side */
+  .right {
+    right: 0;
+    background-color: red;
+  }
+  
+  /* If you want the content centered horizontally and vertically */
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  /* Style the image inside the centered container, if needed */
+  .centered img {
+    width: 150px;
+    border-radius: 50%;
+  }
+  /* Profile Image and Edit Icon */
+.profile-pic {
+    position: relative;
+}
+
+.profile-pic .edit-icon {
+    bottom: 0;
+    right: 10px;
+}
+
+/* Left Section */
+.left {
+    width: 40%;
+    background: white;
+    color: black;
+}
+
+.left h2 .age {
+    font-size: 1.2rem;
+    color: gray;
+}
+
+/* Right Section */
+.right {
+    width: 60%;
+    background: #ec1b2e;
+}
+
+/* ABOUT ME Section */
+.right h2 {
+    font-weight: bold;
+    font-size: 3rem; /* Increased font size */
+    text-align: center; /* Center alignment */
+    border-bottom: 2px solid white; /* White line below the heading */
+    padding-bottom: 10px; /* Add spacing below the line */
+    margin-bottom: 20px; /* Space between "About Me" and the paragraph */
+}
+
+.right p {
+    text-align: center; /* Center-align the paragraph text */
+    max-width: 80%; /* Restrict the paragraph width */
+    margin: 0 auto; /* Center it horizontally */
+    color: white; /* Ensure the text is readable */
+    line-height: 1.6; /* Improve readability */
+}
+
+/* Left Section: Bigger Font Sizes */
+.left ul li {
+    font-size: 1.5rem; /* Increase font size for "Email Address", etc. */
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 15px; /* Add spacing between items */
+}
+
+.left h2 .age {
+    font-size: 1.5rem;
+    color: gray;
+    font-weight: normal;
+}
+
+/* Buttons and Social Icons at the Bottom of the Right Section */
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push content to top and bottom */
+    height: 100%; /* Ensure full height of the section */
+}
+
+.right .social-icons {
+    margin-top: auto; /* Push social icons to the bottom */
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px; /* Add spacing at the bottom */
+}
+
+.right .social-icons img {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.right .social-icons img:hover {
+    transform: scale(1.1);
+}
+
+.right .btn-group {
+    margin-top: auto; /* Push buttons to the bottom */
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 20px; /* Add spacing at the bottom */
+}
+
+.social-icons img {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+}
+
+/* Style all font awesome icons */
+.fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
+  
+  /* Set a specific color for each brand */
+  
+  .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .fa-twitter {
+    background: #55ACEE;
+    color: white;
+  }
+  
+  .fa-google {
+    background: #dd4b39;
+    color: white;
+  }
+  
+  .fa-linkedin {
+    background: #007bb5;
+    color: white;
+  }
+  
+  .fa-youtube {
+    background: #bb0000;
+    color: white;
+  }
+  
+  .fa-instagram {
+    background: #125688;
+    color: white;
+  }
