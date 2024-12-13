@@ -20,19 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error_message = "Both fields are required!";
     } else {
         // Query to find user
-        $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
 
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($hashed_password);
+            $stmt->bind_result($user_id, $hashed_password);
             $stmt->fetch();
 
             // Verify password
             if (password_verify($password, $hashed_password)) {
-                // Store user info in session and redirect to profile
-                header(header: "Location: ../html/profile.html");
+                // Generate a session token
+                $session_token = bin2hex(random_bytes(32));
+
+                // Store session token in the database
+                $stmt2 = $conn->prepare("INSERT INTO user_sessions (user_id, session_token, created_at) VALUES (?, ?, NOW())");
+                $stmt2->bind_param("is", $user_id, $session_token);
+                $stmt2->execute();
+                $stmt2->close();
+
+                // Store session token in session and redirect
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['session_token'] = $session_token;
+                header("Location: ../html/find_a_partner.php");
                 exit;
             } else {
                 $error_message = "Invalid password!";
