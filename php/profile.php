@@ -255,9 +255,11 @@ $conn->close();
             <div class="about-section">
                 <h2>About Me</h2>
                 <p><?php echo htmlspecialchars($about); ?></p>
+                <?php if ($is_own_profile): ?>
             <form method="POST" action="update_profile.php">
             <button class="btn edit-profile-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
             </form>
+            <?php endif; ?>
             <br><br><br>
             <div class="btn-group">
               <a href = "../html/dashboard.php">
