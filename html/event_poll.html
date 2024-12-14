@@ -4,27 +4,59 @@
     <meta charset="UTF-8">
     <title>RedBird Polling - Create Event Poll</title>
     <!-- Custom CSS -->
-   
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <link rel="stylesheet" href="../assets/styles/event_poll.css"> <!-- Event Polling Page styles -->
+    <style>
+    /* Navbar styling */
+    .navbar {
+      font-family: Anton;
+      background-color: #000;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: Anton;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .navbar nav a:hover {
+      background-color: #ec1b2e;
+    }
+    </style>
 </head>
 <body>
 
-    <!-- Header Section -->
 
 <header>
     <div class="container-fluid">
-        <div class="logo">
-            <!-- Replace 'logo.png' with the path to your actual logo image -->
-            <img src="../assets/images/logo.png" alt="RedBird Polling Logo">
-        </div>
-        <nav>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">About</a>
-            <a class="nav-link" href="#">Contact</a>
-            <a class="nav-link login-btn" href="#">Log In</a>
-            <a class="nav-link signup-btn" href="#">Sign Up</a>
-        </nav>
-    </div>
+        <div class="navbar">
+            <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
+            <nav>
+                <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
+                    <a href="court_bookings.php">BOOK A COURT</a>
+                    <a href="#contact">ABOUT</a>
+                <a href="../php/logout.php" class="btn">LOG OUT</a>
+            </nav>
+          </div>
 </header>
 
     <!-- Hero Section -->
@@ -105,12 +137,6 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms of Service</a> |
-        <a href="#">Contact Us</a>
-    </footer>
 
     <!-- JavaScript -->
     <script src="../scripts/script.js"></script>

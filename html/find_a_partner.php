@@ -31,12 +31,12 @@
 <body>
   <!-- Navbar -->
   <div class="navbar">
-    <img src="../assets/images/logo.png" alt="Logo" class="logo" width="180" height="140">
+    <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
     <nav>
-      <a href="#features">FEATURES</a>
-      <a href="#about">ABOUT</a>
-      <a href="#contact">CONTACT</a>
-      <a href="../php/logout.php" style="color: red;">LOG OUT</a>
+        <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
+            <a href="court_bookings.php">BOOK A COURT</a>
+            <a href="#contact">ABOUT</a>
+        <a href="../php/logout.php" class="btn">LOG OUT</a>
     </nav>
   </div>
 
