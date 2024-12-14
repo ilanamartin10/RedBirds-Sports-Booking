@@ -206,11 +206,13 @@ $conn->close();
             font-weight: bold;
             padding: 10px;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
 
         .edit-profile-btn:hover {
             background-color: white;
             color: black;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -244,7 +246,9 @@ $conn->close();
                     <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
                     <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
                 </ul>
-                <button class="btn find-partner-btn">Find a Partner</button>
+                <a href = "../html/find_a_partner.php">
+                <button class="btn edit-profile-btn">Find a Partner</button>
+              </a> 
             </div>
         </div>
         <div class="profile-right">
@@ -254,6 +258,18 @@ $conn->close();
             <form method="POST" action="update_profile.php">
             <button class="btn edit-profile-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
             </form>
+            <br><br><br>
+            <div class="btn-group">
+              <a href = "../html/dashboard.php">
+                <button class="btn edit-profile-btn">Dashboard</button>
+              </a>  
+              &nbsp;&nbsp;
+              <a href = "../html/event_poll.html">
+                <button class="btn edit-profile-btn">Event Polling</button>
+              </a> 
+            </div>
+        </div>
+
         </div>
         </div>
     </div>

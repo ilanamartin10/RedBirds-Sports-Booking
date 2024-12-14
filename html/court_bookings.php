@@ -255,8 +255,8 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
                             <div class="duration-wrapper">
                                 <button type="button" id="decreaseDuration" class="btn btn-outline-secondary"
                                     disabled>-</button>
-                                <input type="number" id="bookingDuration" class="form-control text-center" value="15"
-                                    min="15" max="120" step="15" readonly>
+                                <input type="number" id="bookingDuration" class="form-control text-center" value="30"
+                                    min="30" max="120" step="30" readonly>
                                 <button type="button" id="increaseDuration" class="btn btn-outline-secondary"
                                     disabled>+</button>
                             </div>
@@ -305,7 +305,7 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
             option.value = `${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, "0")}`;
             option.textContent = `${startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
             startTimeDropdown.appendChild(option);
-            startTime.setMinutes(startTime.getMinutes() + 15);
+            startTime.setMinutes(startTime.getMinutes() + 30);
         }
     };
 
@@ -335,13 +335,13 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
     const updateDuration = (delta) => {
         let duration = parseInt(bookingDuration.value, 10);
         duration += delta;
-        if (duration >= 15 && duration <= 120) {
+        if (duration >= 30 && duration <= 120) {
             bookingDuration.value = duration;
         }
     };
 
-    decreaseDuration.addEventListener("click", () => updateDuration(-15));
-    increaseDuration.addEventListener("click", () => updateDuration(15));
+    decreaseDuration.addEventListener("click", () => updateDuration(-30));
+    increaseDuration.addEventListener("click", () => updateDuration(30));
 
     // Form submission
     submitButton.addEventListener("click", async (e) => {
