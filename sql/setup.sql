@@ -18,3 +18,14 @@ CREATE TABLE bookings (
   status ENUM('pending','confirmed','canceled') DEFAULT 'pending',
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+
+CREATE TABLE `events` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(255) NOT NULL,
+    `description` TEXT NOT NULL,
+    `location` VARCHAR(255) NOT NULL,
+    `max_participants` INT DEFAULT NULL,
+    `visibility` ENUM('public', 'private') NOT NULL DEFAULT 'public',
+    `private_emails` TEXT DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
