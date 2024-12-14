@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
-    echo "Session variables not set. Debug info: ";
-    var_dump($_SESSION); // Debugging line
-    header("Location: ../html/login.html");
-    exit;
+  error_log("Session variables not set. Debug info: " . print_r($_SESSION, true)); 
+  header("Location: ../html/login.html");
+  exit;
 }
 
+$isLoggedIn = true;
 // Database connection
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
@@ -219,13 +218,17 @@ $conn->close();
     <!-- Navbar -->
   <div class="navbar">
     <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140" >
-        <nav>
-            <a style="font-family: Anton;" href="#features">FEATURES</a>
-            <a style="font-family: Anton;" href="#about">ABOUT</a>
-            <a style="font-family: Anton;" href="#contact">CONTACT</a>
-            <a style="font-family: Anton;" href="login.html" class="btn">LOG IN</a>
-            <a style="font-family: Anton;" href="signup.html" class="btn">SIGN UP</a>
-        </nav>
+    <nav>
+        <a href="#features">FEATURES</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
+        <?php if ($isLoggedIn): ?>
+            <a href="logout.php" class="btn">LOG OUT</a>
+        <?php else: ?>
+            <a href="login.html" class="btn">LOG IN</a>
+            <a href="signup.html" class="btn">SIGN UP</a>
+        <?php endif; ?>
+    </nav>
   </div>
 
     <div class="profile-container">
