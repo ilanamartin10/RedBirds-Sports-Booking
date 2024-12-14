@@ -48,6 +48,16 @@ CREATE TABLE bookings (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Court Bookings
+CREATE TABLE court_bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    court_name VARCHAR(255) NOT NULL,
+    booking_time DATETIME NOT NULL,
+    status ENUM('pending', 'confirmed', 'canceled') DEFAULT 'pending',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+)
+
 -- Posts
 CREATE TABLE posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
