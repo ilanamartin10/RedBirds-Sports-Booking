@@ -34,7 +34,126 @@ $conn->close();
   <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <style>
-    /* Same styling as before */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    /* Navbar styling */
+    .navbar {
+      font-family: Anton;
+      background-color: #000;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: Anton;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .navbar nav a:hover {
+      background-color: #ec1b2e;
+    }
+
+    /* Main content styling */
+    .main-container {
+      text-align: center;
+      padding: 2rem;
+      background-color: #ec1b2e;
+      color: #fff;
+    }
+
+    .main-container h2 {
+      font-family: Anton;
+      font-size: 36px;
+      margin-bottom: 1rem;
+    }
+
+    .calendar-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* FullCalendar styling overrides */
+    .fc {
+      font-family: Arial, sans-serif;
+    }
+
+    .fc-toolbar {
+      background-color: #ec1b2e;
+      color: #fff;
+      border-radius: 8px;
+      padding: 0.5rem;
+    }
+
+    .fc-toolbar .fc-button {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .fc-toolbar .fc-button:hover {
+      background-color: #ec1b2e;
+    }
+
+    .fc-toolbar-title {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .fc-view-harness {
+      background-color: #f4f4f4;
+    }
+
+    .fc-daygrid-day {
+      background-color: #fff;
+      border: 1px solid #ddd;
+    }
+
+    .fc-daygrid-day:hover {
+      background-color: #f9e5e5;
+    }
+
+    .fc-day-today {
+      background-color: #ffe6e6;
+    }
+
+    .fc-event {
+      background-color: #ec1b2e;
+      color: #fff;
+      border: none;
+      padding: 0.25rem;
+      border-radius: 3px;
+    }
+
+    .fc-event:hover {
+      background-color: #ec1b2e;
+    }
   </style>
 </head>
 <body>
@@ -65,13 +184,13 @@ $conn->close();
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        initialDate: '2024-11-07',
+        initialDate: '2024-12-07',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        events: '../php/fetch_bookings.php',
+        events: '../php/fetch_events.php',
       });
 
       calendar.render();
