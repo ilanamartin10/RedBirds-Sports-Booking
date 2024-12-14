@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>RedBird Polling - Create Event Poll</title>
-    <!-- Custom CSS -->
-   
-    <link rel="stylesheet" href="../assets/styles/event_poll.css"> <!-- Event Polling Page styles -->
+    <!-- Update path to CSS if necessary. Assuming event_poll.css is in ../assets/styles/ -->
+    <link rel="stylesheet" href="../assets/styles/event_poll.css">
 </head>
 <body>
-
-    <!-- Header Section -->
 
 <header>
     <div class="container-fluid">
         <div class="logo">
-            <!-- Replace 'logo.png' with the path to your actual logo image -->
+            <!-- Adjust path to logo.png if needed -->
             <img src="../assets/images/logo.png" alt="RedBird Polling Logo">
         </div>
         <nav>
@@ -27,56 +24,58 @@
     </div>
 </header>
 
-    <!-- Hero Section -->
-    <section class="event-hero-section">
-        <h1>CREATE YOUR EVENT POLL</h1>
-        <p>Organize events with ease.</p>
-    </section>
+<section class="event-hero-section">
+    <h1>CREATE YOUR EVENT POLL</h1>
+    <p>Organize events with ease.</p>
+</section>
 
     <!-- Event Creation Form Section -->
     <section class="event-form-section">
         <div class="event-form-container">
             <h2>Create Event Poll</h2>
-            <form id="event-form">
+            <form id="event-form" action="../php/create_event_poll.php" method="POST">
                 <!-- Event Title -->
                 <label for="event-title">Event Title</label>
                 <input type="text" id="event-title" name="event-title" placeholder="Enter event title" required>
 
-                <!-- Description -->
-                <label for="event-description">Description</label>
-                <textarea id="event-description" name="event-description" placeholder="Enter event description" required></textarea>
+            <!-- Description -->
+            <label for="event-description">Description</label>
+            <textarea id="event-description" name="event-description" placeholder="Enter event description" required></textarea>
 
-                <!-- Location -->
-                <label for="event-location">Location</label>
-                <input type="text" id="event-location" name="event-location" placeholder="Enter location" required>
+            <!-- Location -->
+            <label for="event-location">Location</label>
+            <input type="text" id="event-location" name="event-location" placeholder="Enter location" required>
 
-                <!-- Maximum Participants (Optional) -->
-                <label for="max-participants">Maximum Participants (Optional)</label>
-                <input type="number" id="max-participants" name="max-participants" min="1">
+            <!-- Maximum Participants (Optional) -->
+            <label for="max-participants">Maximum Participants (Optional)</label>
+            <input type="number" id="max-participants" name="max-participants" min="1">
 
-                <!-- Date & Time Options -->
-                <h3>Date & Time Options</h3>
-                <div id="datetime-options">
-                    <!-- Dynamic Date & Time Inputs will be added here -->
-                </div>
-                <button type="button" id="add-datetime-btn">Add Date/Time Option</button>
+            <!-- Date & Time Options -->
+            <h3>Date & Time Options</h3>
+            <div id="datetime-options">
+                <!-- We'll add fields via JS -->
+            </div>
+            <button type="button" id="add-datetime-btn">Add Date/Time Option</button>
 
-                <!-- Visibility Settings -->
-                <h3>Visibility Settings</h3>
-                <div class="visibility-options">
-                    <button type="button" class="visibility-btn selected" data-value="public">Public</button>
-                    <button type="button" class="visibility-btn" data-value="private">Private</button>
-                </div>
-                <div id="private-users" style="display: none;">
-                    <label for="private-emails">Enter Emails or Usernames (comma-separated)</label>
-                    <textarea id="private-emails" name="private-emails" placeholder="user1@example.com, user2@example.com"></textarea>
-                </div>
+            <!-- Visibility Settings -->
+            <h3>Visibility Settings</h3>
+            <div class="visibility-options">
+                <button type="button" class="visibility-btn selected" data-value="public">Public</button>
+                <button type="button" class="visibility-btn" data-value="private">Private</button>
+            </div>
+            <div id="private-users" style="display: none;">
+                <label for="private-emails">Enter Emails or Usernames (comma-separated)</label>
+                <textarea id="private-emails" name="private-emails" placeholder="user1@example.com, user2@example.com"></textarea>
+            </div>
 
-                <!-- Submission Button -->
-                <button type="submit" id="create-event-btn">Create Event Poll</button>
-            </form>
-        </div>
-    </section>
+            <!-- Hidden field for visibility -->
+            <input type="hidden" name="visibility" value="public">
+
+            <!-- Submission Button -->
+            <button type="submit" id="create-event-btn">Create Event Poll</button>
+        </form>
+    </div>
+</section>
 
     <!-- Poll Display Section -->
     <section class="poll-display-section" id="poll-display-section" style="display: none;">
@@ -104,13 +103,6 @@
             <!-- Add a comment section here if needed -->
         </div>
     </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <a href="#">Privacy Policy</a> |
-        <a href="#">Terms of Service</a> |
-        <a href="#">Contact Us</a>
-    </footer>
 
     <!-- JavaScript -->
     <script src="../scripts/script.js"></script>
