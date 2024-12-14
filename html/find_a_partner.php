@@ -72,17 +72,17 @@
       }
 
       // Fetch posts from the database
-      $sql = "SELECT posts.id, posts.title, posts.description, users.first_name, users.last_name 
-              FROM posts 
-              JOIN users ON posts.user_id = users.id 
-              ORDER BY posts.created_at DESC";
+      $sql = "SELECT posts.id, posts.title, posts.description, posts.user_id, users.first_name, users.last_name 
+        FROM posts 
+        JOIN users ON posts.user_id = users.id 
+        ORDER BY posts.created_at DESC";
       $result = $conn->query($sql);
 
       if ($result->num_rows > 0) {
           // Output each post
           while ($row = $result->fetch_assoc()) {
               echo '<div class="post-item">';
-              echo '<h3>' . htmlspecialchars($row['title']) . '</h3>';
+              echo '<h3><a href="../php/profile.php?user_id=' . htmlspecialchars($row['user_id']) . '">' . htmlspecialchars($row['title']) . '</a></h3>';
               echo '<p>' . htmlspecialchars($row['description']) . '</p>';
               echo '<p><strong>Posted by:</strong> ' . htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) . '</p>';
               echo '</div>';
