@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Store session token in session and redirect
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['session_token'] = $session_token;
-                header("Location: ../html/find_a_partner.php");
+                header("Location: ../php/profile.php");
                 exit;
             } else {
                 $error_message = "Invalid password!";
@@ -57,73 +57,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $conn->close();
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 300px;
-        }
-        .login-container h2 {
-            margin-bottom: 1.5rem;
-            color: #e74c3c;
-        }
-        .login-container form {
-            display: flex;
-            flex-direction: column;
-        }
-        .login-container input {
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .login-container button {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .login-container button:hover {
-            background-color: #c0392b;
-        }
-        .error-message {
-            color: red;
-            margin-top: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="POST" action="">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <?php if (!empty($error_message)): ?>
-            <div class="error-message"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-    </div>
-</body>
-</html>
