@@ -66,3 +66,15 @@ CREATE TABLE user_sessions (
     created_at DATETIME NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
+    
+-- Court Booking
+CREATE TABLE court_bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    court_name VARCHAR(50) NOT NULL,
+    booking_start DATETIME NOT NULL,
+    duration INT NOT NULL,
+    booking_time DATETIME NOT NULL,
+    status ENUM('pending', 'confirmed', 'cancelled') NOT NULL DEFAULT 'pending',
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
