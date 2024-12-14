@@ -276,7 +276,7 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-  document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function () {
     const courtOptions = document.querySelectorAll(".court-option");
     const bookingDate = document.getElementById("bookingDate");
     const startTimeDropdown = document.getElementById("startTime");
@@ -285,63 +285,165 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
     const increaseDuration = document.getElementById("increaseDuration");
     const submitButton = document.querySelector("button[type='submit']");
 
-    // Handle court selection
+    // Initially disable interactive fields
+    startTimeDropdown.disabled = true;
+    decreaseDuration.disabled = true;
+    increaseDuration.disabled = true;
+    submitButton.disabled = true;
+
+    // Restrict date selection and disable manual typing
+    const restrictDateRange = () => {
+        const today = new Date();
+        const todayStr = today.toISOString().split("T")[0];
+        bookingDate.setAttribute("min", todayStr);
+        bookingDate.addEventListener("keydown", (e) => e.preventDefault()); // Prevent manual input
+    };
+
+    restrictDateRange();
+
+    // Populate start time dropdown
+    // Populate start time dropdown with filtering for past times if today's date is selected
+const populateStartTimeDropdown = () => {
+    const today = new Date();
+    const currentDateStr = today.toISOString().split("T")[0];
+
+    const startTime = new Date();
+    startTime.setHours(7, 0, 0, 0); // Start at 7:00 AM
+    const endTime = new Date();
+    endTime.setHours(21, 30, 0, 0); // End at 9:00 PM
+
+    startTimeDropdown.innerHTML = ""; // Clear previous options
+
+    while (startTime <= endTime) {
+        const optionTime = new Date(startTime);
+        const option = document.createElement("option");
+        option.value = `${optionTime.getHours()}:${optionTime.getMinutes().toString().padStart(2, "0")}`;
+        option.textContent = `${optionTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+
+        // Only add options for future times if today's date is selected
+        if (bookingDate.value === currentDateStr) {
+            if (optionTime >= today) {
+                startTimeDropdown.appendChild(option);
+            }
+        } else {
+            startTimeDropdown.appendChild(option); // Add all options for other dates
+        }
+
+        startTime.setMinutes(startTime.getMinutes() + 30);
+    }
+};
+
+// Adjust the listener on `bookingDate` to re-populate times when the date changes
+bookingDate.addEventListener("input", () => {
+    const selectedCourt = document.querySelector(".court-option.selected");
+    if (selectedCourt && bookingDate.value) {
+        startTimeDropdown.disabled = false;
+        decreaseDuration.disabled = false;
+        increaseDuration.disabled = false;
+        populateStartTimeDropdown(); // Re-populate times based on the selected date
+    }
+    validateForm();
+});
+
+
+    populateStartTimeDropdown();
+
+    // Adjust maximum booking duration based on selected start time
+    const adjustMaxDuration = () => {
+        const startTime = startTimeDropdown.value; // e.g., "21:00"
+        if (startTime) {
+            const [hours, minutes] = startTime.split(":").map(Number);
+            const startTimeInMinutes = hours * 60 + minutes; // Convert to total minutes
+            const latestEndTimeInMinutes = 22 * 60; // 10:00 PM in total minutes
+
+            let maxDuration = 120; // Default max duration is 120 minutes
+
+            if (startTimeInMinutes >= 20 * 60) {
+                // If start time is 8 PM or later, dynamically calculate max duration
+                maxDuration = Math.max(0, latestEndTimeInMinutes - startTimeInMinutes);
+            }
+
+            if (parseInt(bookingDuration.value, 10) > maxDuration) {
+                bookingDuration.value = maxDuration;
+            }
+
+            increaseDuration.disabled = parseInt(bookingDuration.value, 10) >= maxDuration;
+            decreaseDuration.disabled = parseInt(bookingDuration.value, 10) <= 30;
+        }
+    };
+
+    // Validate form: enable Submit button if all fields are properly filled
+    const validateForm = () => {
+        const selectedCourt = document.querySelector(".court-option.selected");
+        const isDateValid = !!bookingDate.value;
+        const isTimeValid = !!startTimeDropdown.value;
+        const isDurationValid = bookingDuration.value >= 30 && bookingDuration.value <= 120;
+
+        submitButton.disabled = !(selectedCourt && isDateValid && isTimeValid && isDurationValid);
+    };
+
+    // Enable fields when a valid date is selected
+    bookingDate.addEventListener("input", () => {
+        const selectedCourt = document.querySelector(".court-option.selected");
+        if (selectedCourt && bookingDate.value) {
+            startTimeDropdown.disabled = false;
+            decreaseDuration.disabled = false;
+            increaseDuration.disabled = false;
+        }
+        validateForm();
+    });
+
+    // Add event listeners for court selection
     courtOptions.forEach((court) => {
         court.addEventListener("click", () => {
             courtOptions.forEach((el) => el.classList.remove("selected"));
             court.classList.add("selected");
+            if (bookingDate.value) {
+                startTimeDropdown.disabled = false;
+                decreaseDuration.disabled = false;
+                increaseDuration.disabled = false;
+            }
+            validateForm();
         });
     });
 
-    // Populate start time dropdown
-    const populateStartTimeDropdown = () => {
-        const startTime = new Date();
-        startTime.setHours(7, 0, 0, 0); // Start at 7:00 AM
-        const endTime = new Date();
-        endTime.setHours(21, 0, 0, 0); // End at 9:00 PM
-
-        while (startTime <= endTime) {
-            const option = document.createElement("option");
-            option.value = `${startTime.getHours()}:${startTime.getMinutes().toString().padStart(2, "0")}`;
-            option.textContent = `${startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
-            startTimeDropdown.appendChild(option);
-            startTime.setMinutes(startTime.getMinutes() + 30);
-        }
-    };
-
-    populateStartTimeDropdown();
-
-    // Enable fields when a date is selected
-    bookingDate.addEventListener("input", () => {
-        startTimeDropdown.disabled = !bookingDate.value;
-        decreaseDuration.disabled = !bookingDate.value;
-        increaseDuration.disabled = !bookingDate.value;
-        submitButton.disabled = !(bookingDate.value && startTimeDropdown.value && bookingDuration.value);
-    });
-
-    // Enable submit button if all fields are valid
-    const validateForm = () => {
-        const selectedCourt = document.querySelector(".court-option.selected");
-        submitButton.disabled = !(
-            selectedCourt && bookingDate.value && startTimeDropdown.value && bookingDuration.value
-        );
-    };
-
-    [bookingDate, startTimeDropdown, bookingDuration].forEach((el) =>
-        el.addEventListener("input", validateForm)
-    );
-
-    // Duration Controls
+    // Duration controls
     const updateDuration = (delta) => {
         let duration = parseInt(bookingDuration.value, 10);
-        duration += delta;
-        if (duration >= 30 && duration <= 120) {
+        duration = isNaN(duration) ? 0 : duration + delta;
+        const [hours, minutes] = startTimeDropdown.value.split(":").map(Number);
+        const startTimeInMinutes = hours * 60 + minutes;
+        const latestEndTimeInMinutes = 22 * 60;
+
+        let maxDuration = 120; // Default max duration is 120 minutes
+
+        if (startTimeInMinutes >= 20 * 60) {
+            maxDuration = Math.max(0, latestEndTimeInMinutes - startTimeInMinutes);
+        }
+
+        if (duration >= 30 && duration <= maxDuration) {
             bookingDuration.value = duration;
         }
+
+        increaseDuration.disabled = duration >= maxDuration;
+        decreaseDuration.disabled = duration <= 30;
+
+        validateForm();
     };
 
     decreaseDuration.addEventListener("click", () => updateDuration(-30));
     increaseDuration.addEventListener("click", () => updateDuration(30));
+
+    // Listen for changes in the start time to adjust duration and validate time
+    startTimeDropdown.addEventListener("change", () => {
+        adjustMaxDuration();
+        validateForm();
+    });
+
+    // Enable Submit button if all inputs are valid
+    [bookingDate, startTimeDropdown, bookingDuration].forEach((el) =>
+        el.addEventListener("input", validateForm)
+    );
 
     // Form submission
     submitButton.addEventListener("click", async (e) => {
@@ -365,8 +467,6 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
     });
 });
 
-
-   
 </script>
 
 
