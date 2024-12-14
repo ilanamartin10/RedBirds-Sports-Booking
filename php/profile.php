@@ -78,46 +78,49 @@ $conn->close();
             font-family: Arial, sans-serif;
         }
 
-        /* Navbar styling */
-        .navbar {
-            font-family: Anton;
-            background-color: #000;
-            color: #fff;
-            padding: 1rem;
+         /* Navbar styling */
+    .navbar {
+      font-family: Anton;
+      background-color: #000;
+      color: #fff;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .navbar nav a {
+      color: #fff;
+      text-decoration: none;
+      font-family: Anton;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    .navbar nav a:hover {
+      background-color: #ec1b2e;
+    }
+
+        /* Profile Container */
+        .profile-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100%;
+            height: calc(100vh - 120px); /* Subtract navbar height */
         }
 
-        .navbar h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .navbar nav {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .navbar nav a {
-            color: #fff;
-            text-decoration: none;
-            font-family: Anton;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-        }
-
-        .navbar nav a:hover {
-            background-color: #e74c3c;
-        }
-        /* Layout */
-        .container-fluid {
-            display: flex;
-        }
-
-        /* Left Section */
-        .left {
+        /* Left Profile Section */
+        .profile-left {
             width: 40%;
             background: white;
             color: black;
@@ -125,71 +128,79 @@ $conn->close();
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
-        .left .profile-pic img {
-            width: 150px;
+        .profile-pic {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
         }
 
-        .left h1 {
-            font-size: 2rem;
-            margin: 20px 0;
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
             text-align: center;
         }
 
-        .left ul {
+        .profile-info h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
             list-style: none;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            padding-left: 0;
+            padding: 0;
+            text-align: center;
         }
 
-        .left ul li {
+        .profile-details li {
             margin-bottom: 10px;
+            font-size: 1rem;
         }
 
-        .left .btn {
+        .find-partner-btn {
             margin-top: 20px;
             background-color: #ec1b2e;
             color: white;
             font-weight: bold;
         }
 
-        /* Right Section */
-        .right {
+        /* Right Profile Section */
+        .profile-right {
             width: 60%;
             background: #ec1b2e;
             color: white;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 40px;
         }
 
-        .right h2 {
-            font-size: 3rem;
+        .about-section {
             text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 3rem;
             border-bottom: 2px solid white;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
 
-        .right p {
-            text-align: center;
+        .about-section p {
             line-height: 1.8;
-            margin: 0 auto;
             max-width: 80%;
+            margin: 0 auto;
         }
 
-        .right .btn-group {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .right .btn-group .btn {
-            flex: 1;
+        .edit-profile-btn {
             background-color: black;
             color: white;
             text-transform: uppercase;
@@ -198,35 +209,16 @@ $conn->close();
             transition: all 0.3s ease;
         }
 
-        .right .btn-group .btn:hover {
+        .edit-profile-btn:hover {
             background-color: white;
             color: black;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons i {
-            font-size: 2rem;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icons i:hover {
-            transform: scale(1.2);
-            color: #000;
         }
     </style>
 </head>
 <body>
-
-     <!-- Navbar -->
-    <div class="navbar">
-        <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="120" height="120">
+    <!-- Navbar -->
+  <div class="navbar">
+    <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140" >
         <nav>
             <a style="font-family: Anton;" href="#features">FEATURES</a>
             <a style="font-family: Anton;" href="#about">ABOUT</a>
@@ -234,31 +226,36 @@ $conn->close();
             <a style="font-family: Anton;" href="login.html" class="btn">LOG IN</a>
             <a style="font-family: Anton;" href="signup.html" class="btn">SIGN UP</a>
         </nav>
-    </div>
+  </div>
 
-    <div class="container-fluid">
-        <div class="left">
+    <div class="profile-container">
+        <div class="profile-left">
             <div class="profile-pic">
                 <img src="../assets/images/picture_placeholder.png" alt="Profile Picture">
             </div>
-            <h1><?php echo htmlspecialchars($first_name); ?></h1>
-            <ul>
-                <li>📧 Email Address: <?php echo htmlspecialchars($email); ?></li>
-                <li>⚽ Favorite Sports: <?php echo htmlspecialchars($favorite_sports); ?></li>
-                <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
-                <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
-            </ul>
-            <button class="btn btn-dark">Find a Partner</button>
+            <div class="profile-info">
+                <h1><?php echo htmlspecialchars($first_name); ?></h1>
+                <ul class="profile-details">
+                    <li>📧 Email Address: <?php echo htmlspecialchars($email); ?></li>
+                    <li>⚽ Favorite Sports: <?php echo htmlspecialchars($favorite_sports); ?></li>
+                    <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
+                    <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
+                </ul>
+                <button class="btn find-partner-btn">Find a Partner</button>
+            </div>
         </div>
-        <div class="right">
-            <h2>About Me</h2>
-            <p><?php echo htmlspecialchars($about); ?></p>
+        <div class="profile-right">
+            <div class="about-section">
+                <h2>About Me</h2>
+                <p><?php echo htmlspecialchars($about); ?></p>
             <form method="POST" action="update_profile.php">
-            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+            <button class="btn edit-profile-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
             </form>
         </div>
+        </div>
     </div>
-    <!-- Edit Profile Modal -->
+
+   <!-- Edit Profile Modal -->
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
