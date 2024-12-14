@@ -30,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($stmt->execute()) {
         $user_id = $stmt->insert_id;
 
-        $stmt2 = $conn->prepare("INSERT INTO profiles (user_id, favorite_sports, major, minor, about) VALUES (?, '', '', '', '')");
-        $stmt2->bind_param("i", $user_id);
+        $stmt2 = $conn->prepare("INSERT INTO profiles (user_id, email, favorite_sports, major, minor, about) VALUES (?, ?, '', '', '', '')");
+        $stmt2->bind_param("is", $user_id, $email);
         $stmt2->execute();
         $stmt2->close();
 

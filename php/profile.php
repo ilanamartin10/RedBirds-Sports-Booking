@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Check if the user is logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
   error_log("Session variables not set. Debug info: " . print_r($_SESSION, true)); 
   header("Location: ../html/login.html");
@@ -8,6 +9,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
 }
 
 $isLoggedIn = true;
+
 // Database connection
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
@@ -31,11 +33,11 @@ if ($stmt->num_rows === 0) {
 $stmt->close();
 
 // Fetch user profile details
-$user_id = $_SESSION['user_id'];
+$profile_user_id = $_GET['user_id'] ?? $_SESSION['user_id']; // Use `user_id` from URL, fallback to logged-in user
+$is_own_profile = ($profile_user_id == $_SESSION['user_id']); // Determine if this is the user's own profile
 
-// Query the view to fetch profile details including first_name
 $stmt = $conn->prepare("SELECT first_name, favorite_sports, major, minor, about FROM profiles_with_name WHERE user_id = ?");
-$stmt->bind_param("i", $user_id);
+$stmt->bind_param("i", $profile_user_id);
 $stmt->execute();
 $stmt->bind_result($first_name, $favorite_sports, $major, $minor, $about);
 
@@ -50,8 +52,8 @@ if (!$stmt->fetch()) {
 
 $stmt->close();
 $conn->close();
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,46 +236,48 @@ $conn->close();
         </div>
 
     <div class="profile-container">
-        <div class="profile-left">
-            <div class="profile-pic">
-                <img src="../assets/images/picture_placeholder.png" alt="Profile Picture">
-            </div>
-            <div class="profile-info">
-                <h1><?php echo htmlspecialchars($first_name); ?></h1>
-                <ul class="profile-details">
-                    <li>📧 Email Address: <?php echo htmlspecialchars($email); ?></li>
-                    <li>⚽ Favorite Sports: <?php echo htmlspecialchars($favorite_sports); ?></li>
-                    <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
-                    <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
-                </ul>
-                <a href = "../html/find_a_partner.php">
+    <div class="profile-left">
+    <div class="profile-pic">
+        <img src="../assets/images/picture_placeholder.png" alt="Profile Picture">
+    </div>
+    <div class="profile-info">
+        <h1><?php echo htmlspecialchars($first_name); ?></h1>
+        <ul class="profile-details">
+            <li>📧 Email Address: <?php echo htmlspecialchars($email); ?></li>
+            <li>⚽ Favorite Sports: <?php echo htmlspecialchars($favorite_sports); ?></li>
+            <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
+            <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
+        </ul>
+        <?php if ($is_own_profile): ?>
+            <a href="../html/find_a_partner.php">
                 <button class="btn edit-profile-btn">Find a Partner</button>
-              </a> 
-            </div>
-        </div>
-        <div class="profile-right">
-            <div class="about-section">
-                <h2>About Me</h2>
-                <p><?php echo htmlspecialchars($about); ?></p>
-                <?php if ($is_own_profile): ?>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="profile-right">
+    <div class="about-section">
+        <h2>About Me</h2>
+        <p><?php echo htmlspecialchars($about); ?></p>
+        <?php if ($is_own_profile): ?>
             <form method="POST" action="update_profile.php">
-            <button class="btn edit-profile-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
+                <button class="btn edit-profile-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit Profile</button>
             </form>
-            <?php endif; ?>
             <br><br><br>
             <div class="btn-group">
-              <a href = "../html/dashboard.php">
-                <button class="btn edit-profile-btn">Dashboard</button>
-              </a>  
-              &nbsp;&nbsp;
-              <a href = "../html/event_poll.html">
-                <button class="btn edit-profile-btn">Event Polling</button>
-              </a> 
+                <a href="../html/dashboard.php">
+                    <button class="btn edit-profile-btn">Dashboard</button>
+                </a>
+                &nbsp;&nbsp;
+                <a href="../html/event_poll.html">
+                    <button class="btn edit-profile-btn">Event Polling</button>
+                </a>
             </div>
-        </div>
+        <?php endif; ?>
+    </div>
+</div>
 
-        </div>
-        </div>
     </div>
 
    <!-- Edit Profile Modal -->
