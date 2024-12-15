@@ -274,8 +274,8 @@ if ($is_own_profile) {
                     <?php if ($is_own_profile && $hasMembership): ?>
                         <li>🏋️ Gym Membership: 
                     <strong>
-                        <?= $remainingDays > 0 ? "Your membership expires in $remainingDays days" : "Your membership has expired" ?>
-                    </strong>
+            <?= $remainingDays > 0 ? "Your membership expires in $remainingDays days" : "Your membership has expired" ?>
+        </strong>
                     <?php endif; ?>
                 </ul>
                 <?php if (!$is_own_profile): ?>
@@ -324,7 +324,6 @@ if ($is_own_profile) {
                 <?php endif; ?>
             </div>
         </div>
-
     </div>
 
     <!-- Edit Profile Modal -->
@@ -360,7 +359,6 @@ if ($is_own_profile) {
         </div>
     </div>
 
-
     <script>
         document.getElementById('saveProfileButton').addEventListener('click', function () {
             const formData = new FormData(document.getElementById('editProfileForm'));
@@ -383,7 +381,4 @@ if ($is_own_profile) {
                 });
         });
     </script>
-
-
 </body>
-</html>
