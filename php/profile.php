@@ -1,57 +1,53 @@
 <?php
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
-  error_log("Session variables not set. Debug info: " . print_r($_SESSION, true)); 
-  header("Location: ../html/login.html");
-  exit;
-}
-
-$isLoggedIn = true;
-
 // Database connection
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Validate session token in the database
+// Redirect if not logged in
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
+    error_log("Session not set.");
+    header("Location: ../html/login.html");
+    exit;
+}
+
+$isLoggedIn = true;
+
+// Validate session token
 $stmt = $conn->prepare("SELECT id FROM user_sessions WHERE user_id = ? AND session_token = ?");
 $stmt->bind_param("is", $_SESSION['user_id'], $_SESSION['session_token']);
 $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows === 0) {
-    echo "Session validation failed. Debug info:";
-    echo "User ID: " . $_SESSION['user_id'] . "<br>";
-    echo "Session Token: " . $_SESSION['session_token'] . "<br>";
+    error_log("Session validation failed for user ID: " . $_SESSION['user_id']);
     header("Location: ../html/login.html");
     exit;
 }
-
 $stmt->close();
 
-// Fetch user profile details
-$profile_user_id = $_GET['user_id'] ?? $_SESSION['user_id']; // Use `user_id` from URL, fallback to logged-in user
-$is_own_profile = ($profile_user_id == $_SESSION['user_id']); // Determine if this is the user's own profile
+// Determine profile to fetch
+$profile_user_id = $_GET['user_id'] ?? $_SESSION['user_id'];
+$is_own_profile = ($profile_user_id == $_SESSION['user_id']);
 
-$stmt = $conn->prepare("SELECT first_name, favorite_sports, major, minor, about FROM profiles_with_name WHERE user_id = ?");
+// Fetch profile details
+$stmt = $conn->prepare("SELECT u.first_name, u.last_name, u.email, p.favorite_sports, p.major, p.minor, p.about 
+                        FROM profiles p 
+                        INNER JOIN users u ON p.user_id = u.id 
+                        WHERE p.user_id = ?");
 $stmt->bind_param("i", $profile_user_id);
 $stmt->execute();
-$stmt->bind_result($first_name, $favorite_sports, $major, $minor, $about);
+$stmt->bind_result($first_name, $last_name, $email, $favorite_sports, $major, $minor, $about);
 
 if (!$stmt->fetch()) {
-    // Handle case where no profile exists for the user
-    $first_name = "Unknown";
-    $favorite_sports = "Not set";
-    $major = "Not set";
-    $minor = "Not set";
-    $about = "Not set";
+    error_log("Profile not found for user ID: " . $profile_user_id);
+    header("Location: error_page.php?error=profile_not_found");
+    exit;
 }
-
 $stmt->close();
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -78,51 +74,51 @@ $conn->close();
             background-image: linear-gradient(to right, white 0%, white 40%, #ec1b2e 40%, #ec1b2e 100%);
             font-family: Arial, sans-serif;
         }
+       
 
-         /* Navbar styling */
+
+        /* Navbar styling */
     .navbar {
-      font-family: Anton;
-      background-color: #000;
-      color: #fff;
-      padding: 0.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+            font-family: Anton;
+            background-color: #000;
+            color: #fff;
+            padding: 0.09rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
 
-    .navbar h1 {
-      margin: 0;
-      font-size: 24px;
-    }
+        .navbar nav {
+            display: flex;
+            gap: 1rem;
+        }
 
-    .navbar nav {
-      display: flex;
-      gap: 1rem;
-    }
+        .navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Anton;
+            padding: 0.5rem 1rem;
+            font-size: 20px;
+            border-radius: 5px;
+            letter-spacing: 0.05rem;
+        }
 
-    .navbar nav a {
-      color: #fff;
-      text-decoration: none;
-      font-family: Anton;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-
-    .navbar nav a:hover {
-      background-color: #ec1b2e;
-    }
+        .navbar nav a:hover {
+            background-color: #ec1b2e;
+        }
 
         /* Profile Container */
         .profile-container {
+            font-family: 'Open Sans';
             display: flex;
             width: 100%;
-            height: calc(100vh - 120px); /* Subtract navbar height */
+            height: calc(100vh - 120px); 
         }
 
         /* Left Profile Section */
         .profile-left {
             width: 40%;
+            font-family: 'Open Sans';
             background: white;
             color: black;
             padding: 40px;
@@ -151,6 +147,7 @@ $conn->close();
         }
 
         .profile-info h1 {
+          font-family: 'Open Sans';
             font-size: 2rem;
             margin-bottom: 20px;
         }
@@ -162,11 +159,13 @@ $conn->close();
         }
 
         .profile-details li {
+          font-family: 'Open Sans';
             margin-bottom: 10px;
             font-size: 1rem;
         }
 
         .find-partner-btn {
+          font-family: 'Open Sans';
             margin-top: 20px;
             background-color: #ec1b2e;
             color: white;
@@ -175,6 +174,7 @@ $conn->close();
 
         /* Right Profile Section */
         .profile-right {
+            font-family: 'Open Sans';
             width: 60%;
             background: #ec1b2e;
             color: white;
@@ -189,6 +189,7 @@ $conn->close();
         }
 
         .about-section h2 {
+            font-family: 'Anton';
             font-size: 3rem;
             border-bottom: 2px solid white;
             padding-bottom: 10px;
@@ -196,6 +197,7 @@ $conn->close();
         }
 
         .about-section p {
+            font-family: 'Open Sans';
             line-height: 1.8;
             max-width: 80%;
             margin: 0 auto;
@@ -203,8 +205,8 @@ $conn->close();
 
         .edit-profile-btn {
             background-color: black;
+            font-family: 'Open Sans';
             color: white;
-            text-transform: uppercase;
             font-weight: bold;
             padding: 10px;
             transition: all 0.3s ease;

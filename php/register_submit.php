@@ -1,4 +1,3 @@
-
 <?php
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
