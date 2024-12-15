@@ -36,10 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("Location: profile.php?user_id=" . $user_id);
                 exit;
             } else {
-                $error_message = "Invalid password!";
+                header("Location: ../html/login.html?error=" . urlencode("Invalid password!"));
+                exit;
+
             }
         } else {
-            $error_message = "No account found with that email!";
+            header("Location: ../html/login.html?error=" . urlencode("Invalid email!"));
+            exit;
         }
 
         $stmt->close();
