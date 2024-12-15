@@ -1,11 +1,13 @@
 <?php
 session_start();
 
+// Database connection
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Redirect if not logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
     error_log("Session not set.");
     header("Location: ../html/login.html");
@@ -21,13 +23,10 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows === 0) {
-    echo "Session validation failed. Debug info:";
-    echo "User ID: " . $_SESSION['user_id'] . "<br>";
-    echo "Session Token: " . $_SESSION['session_token'] . "<br>";
+    error_log("Session validation failed for user ID: " . $_SESSION['user_id']);
     header("Location: ../html/login.html");
     exit;
 }
-
 $stmt->close();
 
 // Determine profile to fetch
@@ -75,51 +74,51 @@ $stmt->close();
             background-image: linear-gradient(to right, white 0%, white 40%, #ec1b2e 40%, #ec1b2e 100%);
             font-family: Arial, sans-serif;
         }
+       
 
-         /* Navbar styling */
+
+        /* Navbar styling */
     .navbar {
-      font-family: Anton;
-      background-color: #000;
-      color: #fff;
-      padding: 0.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+            font-family: Anton;
+            background-color: #000;
+            color: #fff;
+            padding: 0.09rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
 
-    .navbar h1 {
-      margin: 0;
-      font-size: 24px;
-    }
+        .navbar nav {
+            display: flex;
+            gap: 1rem;
+        }
 
-    .navbar nav {
-      display: flex;
-      gap: 1rem;
-    }
+        .navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Anton;
+            padding: 0.5rem 1rem;
+            font-size: 20px;
+            border-radius: 5px;
+            letter-spacing: 0.05rem;
+        }
 
-    .navbar nav a {
-      color: #fff;
-      text-decoration: none;
-      font-family: Anton;
-      font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-
-    .navbar nav a:hover {
-      background-color: #ec1b2e;
-    }
+        .navbar nav a:hover {
+            background-color: #ec1b2e;
+        }
 
         /* Profile Container */
         .profile-container {
+            font-family: 'Open Sans';
             display: flex;
             width: 100%;
-            height: calc(100vh - 120px); /* Subtract navbar height */
+            height: calc(100vh - 120px); 
         }
 
         /* Left Profile Section */
         .profile-left {
             width: 40%;
+            font-family: 'Open Sans';
             background: white;
             color: black;
             padding: 40px;
@@ -148,6 +147,7 @@ $stmt->close();
         }
 
         .profile-info h1 {
+          font-family: 'Open Sans';
             font-size: 2rem;
             margin-bottom: 20px;
         }
@@ -159,11 +159,13 @@ $stmt->close();
         }
 
         .profile-details li {
+          font-family: 'Open Sans';
             margin-bottom: 10px;
             font-size: 1rem;
         }
 
         .find-partner-btn {
+          font-family: 'Open Sans';
             margin-top: 20px;
             background-color: #ec1b2e;
             color: white;
@@ -172,6 +174,7 @@ $stmt->close();
 
         /* Right Profile Section */
         .profile-right {
+            font-family: 'Open Sans';
             width: 60%;
             background: #ec1b2e;
             color: white;
@@ -186,6 +189,7 @@ $stmt->close();
         }
 
         .about-section h2 {
+            font-family: 'Anton';
             font-size: 3rem;
             border-bottom: 2px solid white;
             padding-bottom: 10px;
@@ -193,6 +197,7 @@ $stmt->close();
         }
 
         .about-section p {
+            font-family: 'Open Sans';
             line-height: 1.8;
             max-width: 80%;
             margin: 0 auto;
@@ -200,8 +205,8 @@ $stmt->close();
 
         .edit-profile-btn {
             background-color: black;
+            font-family: 'Open Sans';
             color: white;
-            text-transform: uppercase;
             font-weight: bold;
             padding: 10px;
             transition: all 0.3s ease;
