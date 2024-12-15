@@ -15,6 +15,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
 }
 
 $isLoggedIn = true;
+$user_id = $_SESSION['user_id'];
 
 // Validate session token
 $stmt = $conn->prepare("SELECT id FROM user_sessions WHERE user_id = ? AND session_token = ?");
@@ -53,7 +54,6 @@ $stmt->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Include existing styles and libraries -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RedBird Bookings - Profile</title>
@@ -75,10 +75,8 @@ $stmt->close();
             font-family: Arial, sans-serif;
         }
        
-
-
         /* Navbar styling */
-    .navbar {
+      .navbar {
             font-family: Anton;
             background-color: #000;
             color: #fff;
@@ -227,8 +225,8 @@ $stmt->close();
           <nav>
             <a href="../html/equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="../html/court_bookings.php">BOOK A COURT</a>
-            <a href="#contact">ABOUT</a>
             <?php if ($isLoggedIn): ?>
+              <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
             <a href="logout.php" class="btn">LOG OUT</a>
             <?php else: ?>
             <a href="login.html" class="btn">LOG IN</a>
@@ -250,7 +248,16 @@ $stmt->close();
             <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
             <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
         </ul>
+        <?php if (!$is_own_profile): ?>
+    <a href="message_user.php?user_id=<?= htmlspecialchars($profile_user_id) ?>">
+        <button class="btn edit-profile-btn">Message</button>
+    </a>
+    <?php endif; ?>
+
         <?php if ($is_own_profile): ?>
+          <a href="messages.php">
+                <button class="btn edit-profile-btn">View Messages</button>
+          </a>
             <a href="../html/find_a_partner.php">
                 <button class="btn edit-profile-btn">Find a Partner</button>
             </a>
