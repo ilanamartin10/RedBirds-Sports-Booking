@@ -99,6 +99,7 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
             .modal-content {
                 background-color: #ffffff;
                 color: #000000;
+                font-family: 'Open Sans';
             }
 
             .modal-header {
