@@ -8,24 +8,52 @@
   <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
-    .navbar { font-family: Anton; background-color: #000; color: #fff; padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-    .navbar h1 { margin: 0; font-size: 24px; }
-    .navbar nav { display: flex; gap: 1rem; }
-    .navbar nav a { color: #fff; text-decoration: none; font-family: Anton; font-weight: bold; padding: 0.5rem 1rem; border-radius: 5px; }
-    .navbar nav a:hover { background-color: #e74c3c; }
+    /* Navbar styling */
+    .navbar {
+            font-family: Anton;
+            background-color: #000;
+            color: #fff;
+            padding: 0.09rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+
+        .navbar nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Anton;
+            padding: 0.5rem 1rem;
+            font-size: 20px;
+            border-radius: 5px;
+            letter-spacing: 0.05rem;
+        }
+
+        .navbar nav a:hover {
+            background-color: #ec1b2e;
+        }
     .page-container { max-width: 900px; margin: 2rem auto; padding: 1rem; background: #fff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
     .page-container h2 { font-family: Anton; font-size: 32px; color: #e74c3c; text-align: center; }
-    .post-form { margin-bottom: 2rem; }
+    .post-form { font-family: 'Open Sans';margin-bottom: 2rem; }
     .post-form label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
     .post-form input, .post-form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; font-family: 'Open Sans'; }
     .post-form button { font-family: Anton; background-color: #e74c3c; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; }
     .post-form button:hover { background-color: #c0392b; }
-    .posts { display: flex; flex-direction: column; gap: 1.5rem; }
-    .post-item { padding: 1rem; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; font-family: 'Open Sans'; }
+    .posts { font-family: 'Open Sans'; display: flex; flex-direction: column; gap: 1.5rem; }
+    .post-item { font-family: 'Open Sans'; padding: 1rem; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; font-family: 'Open Sans'; }
     .post-item h3 { margin: 0; font-size: 20px; color: #e74c3c; }
     .post-item p { margin: 0.5rem 0; }
     .post-item a { color: #e74c3c; text-decoration: none; font-weight: bold; }
     .post-item a:hover { text-decoration: underline; }
+    .post-button {
+    font-family: 'Open Sans';
+    }
+
   </style>
 </head>
 <body>
@@ -59,7 +87,7 @@
       <label for="description">Description:</label>
       <textarea id="description" name="description" rows="4" placeholder="Describe what you’re looking for" required></textarea>
 
-      <button type="submit">Post</button>
+      <button type="submit" class="post-button">Post</button>
     </form>
 
     <!-- Posts Listing -->
