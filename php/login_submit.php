@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 header("Location: ../html/login.html?error=" . urlencode("Invalid password!"));
                 exit;
-
             }
         } else {
             header("Location: ../html/login.html?error=" . urlencode("Invalid email!"));

@@ -48,3 +48,25 @@ CREATE TABLE bookings (
   status ENUM('pending','confirmed','canceled') DEFAULT 'pending',
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
+CREATE TABLE events (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    max_participants INT(11) DEFAULT NULL,
+    visibility ENUM('public', 'private') NOT NULL DEFAULT 'public',
+    private_emails TEXT DEFAULT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE event_options (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    event_id INT(11) NOT NULL,
+    option_datetime DATETIME NOT NULL
+);
+CREATE TABLE event_votes (
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    event_id INT(11) NOT NULL,
+    option_id INT(11) NOT NULL,
+    vote_count INT(11) NOT NULL DEFAULT 0
+);

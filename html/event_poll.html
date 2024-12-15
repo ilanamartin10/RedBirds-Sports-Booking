@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>RedBird Polling - Create Event Poll</title>
-    <!-- Custom CSS -->
-   
-    <link rel="stylesheet" href="../assets/styles/event_poll.css"> <!-- Event Polling Page styles -->
+    <!-- Update path to CSS if necessary. Assuming event_poll.css is in ../assets/styles/ -->
+    <link rel="stylesheet" href="../assets/styles/event_poll.css">
 </head>
 <body>
 
-    <!-- Header Section -->
-
-<header>
-    <div class="container-fluid">
-        <div class="logo">
-            <!-- Replace 'logo.png' with the path to your actual logo image -->
-            <img src="../assets/images/logo.png" alt="RedBird Polling Logo">
+    <header>
+        <div class="container-fluid">
+            <div class="logo">
+                <!-- Adjust the path to your logo -->
+                <img src="../assets/images/logo.png" alt="RedBird Polling Logo">
+            </div>
+            <nav>
+                <a class="nav-link" href="#features">FEATURES</a>
+                <a class="nav-link" href="#about">ABOUT</a>
+                <a class="nav-link" href="#contact">CONTACT</a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a class="nav-link login-btn" href="../php/logout.php">LOG OUT</a>
+                <?php else: ?>
+                    <a class="nav-link login-btn" href="../html/login.html">LOG IN</a>
+                    <a class="nav-link signup-btn" href="../html/signup.html">SIGN UP</a>
+                <?php endif; ?>
+            </nav>
         </div>
-        <nav>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">About</a>
-            <a class="nav-link" href="#">Contact</a>
-            <a class="nav-link login-btn" href="../html/login.html">Log In</a>
-            <a class="nav-link signup-btn" href="../html/signup.html">Sign Up</a>
-        </nav>
-    </div>
-</header>
+    </header>
+    
 
 <section class="event-hero-section">
     <h1>CREATE YOUR EVENT POLL</h1>
@@ -81,36 +83,58 @@
     </div>
 </section>
 
-    <!-- Poll Display Section -->
-    <section class="poll-display-section" id="poll-display-section" style="display: none;">
-        <div class="poll-container">
-            <div class="poll-details">
-                <h2 id="poll-title"></h2>
-                <p id="poll-description"></p>
-                <p id="poll-location"></p>
-                <p id="poll-creator"></p>
-            </div>
+<script>
+    // Visibility toggle
+    const visibilityButtons = document.querySelectorAll('.visibility-btn');
+    const privateUsersDiv = document.getElementById('private-users');
+    const visibilityInput = document.querySelector('input[name="visibility"]');
 
-            <!-- Voting Options -->
-            <h3>Vote for Your Preferred Date & Time</h3>
-            <div class="voting-options" id="voting-options">
-                <!-- Dynamic Voting Buttons will be added here -->
-            </div>
+    visibilityButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            visibilityButtons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            const val = button.getAttribute('data-value');
+            visibilityInput.value = val;
+            if (val === 'private') {
+                privateUsersDiv.style.display = 'block';
+            } else {
+                privateUsersDiv.style.display = 'none';
+            }
+        });
+    });
 
-            <!-- Real-Time Updates -->
-            <h3>Current Votes</h3>
-            <div class="vote-results" id="vote-results">
-                <!-- Dynamic Vote Counts will be displayed here -->
-            </div>
+    // Add datetime options
+    const addDatetimeBtn = document.getElementById('add-datetime-btn');
+    const datetimeOptionsDiv = document.getElementById('datetime-options');
 
-            <!-- Comment Section (Optional) -->
-            <!-- Add a comment section here if needed -->
-        </div>
-    </section>
+    if (addDatetimeBtn) {
+        addDatetimeBtn.addEventListener('click', addDatetimeOption);
+    }
 
+    function addDatetimeOption() {
+        const wrapper = document.createElement('div');
+        wrapper.style.marginBottom = '10px';
+        const datetimeInput = document.createElement('input');
+        datetimeInput.type = 'datetime-local';
+        datetimeInput.name = 'datetime-options[]';
+        datetimeInput.required = true;
 
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = 'Remove';
+        removeBtn.style.marginLeft = '10px';
+        removeBtn.addEventListener('click', () => {
+            wrapper.remove();
+        });
 
-    <!-- JavaScript -->
-    <script src="../scripts/script.js"></script>
+        wrapper.appendChild(datetimeInput);
+        wrapper.appendChild(removeBtn);
+        datetimeOptionsDiv.appendChild(wrapper);
+    }
+
+    // Automatically add one datetime option
+    addDatetimeOption();
+</script>
+
 </body>
 </html>
