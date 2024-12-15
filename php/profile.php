@@ -1,22 +1,20 @@
 <?php
 session_start();
 
-// Check if the user is logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
-  error_log("Session variables not set. Debug info: " . print_r($_SESSION, true)); 
-  header("Location: ../html/login.html");
-  exit;
-}
-
-$isLoggedIn = true;
-
-// Database connection
 $conn = new mysqli('localhost', 'root', '', 'redbird_bookings');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Validate session token in the database
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
+    error_log("Session not set.");
+    header("Location: ../html/login.html");
+    exit;
+}
+
+$isLoggedIn = true;
+
+// Validate session token
 $stmt = $conn->prepare("SELECT id FROM user_sessions WHERE user_id = ? AND session_token = ?");
 $stmt->bind_param("is", $_SESSION['user_id'], $_SESSION['session_token']);
 $stmt->execute();
@@ -32,26 +30,25 @@ if ($stmt->num_rows === 0) {
 
 $stmt->close();
 
-// Fetch user profile details
-$profile_user_id = $_GET['user_id'] ?? $_SESSION['user_id']; // Use `user_id` from URL, fallback to logged-in user
-$is_own_profile = ($profile_user_id == $_SESSION['user_id']); // Determine if this is the user's own profile
+// Determine profile to fetch
+$profile_user_id = $_GET['user_id'] ?? $_SESSION['user_id'];
+$is_own_profile = ($profile_user_id == $_SESSION['user_id']);
 
-$stmt = $conn->prepare("SELECT first_name, favorite_sports, major, minor, about FROM profiles_with_name WHERE user_id = ?");
+// Fetch profile details
+$stmt = $conn->prepare("SELECT u.first_name, u.last_name, u.email, p.favorite_sports, p.major, p.minor, p.about 
+                        FROM profiles p 
+                        INNER JOIN users u ON p.user_id = u.id 
+                        WHERE p.user_id = ?");
 $stmt->bind_param("i", $profile_user_id);
 $stmt->execute();
-$stmt->bind_result($first_name, $favorite_sports, $major, $minor, $about);
+$stmt->bind_result($first_name, $last_name, $email, $favorite_sports, $major, $minor, $about);
 
 if (!$stmt->fetch()) {
-    // Handle case where no profile exists for the user
-    $first_name = "Unknown";
-    $favorite_sports = "Not set";
-    $major = "Not set";
-    $minor = "Not set";
-    $about = "Not set";
+    error_log("Profile not found for user ID: " . $profile_user_id);
+    header("Location: error_page.php?error=profile_not_found");
+    exit;
 }
-
 $stmt->close();
-$conn->close();
 ?>
 
 <!DOCTYPE html>

@@ -16,6 +16,7 @@ CREATE TABLE users (
 CREATE TABLE profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     favorite_sports VARCHAR(255),
     major VARCHAR(100),
     minor VARCHAR(100),
