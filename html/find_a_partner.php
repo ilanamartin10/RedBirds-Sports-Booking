@@ -18,6 +18,7 @@ $user_id = $_SESSION['user_id'];
   <title>Find a Partner</title>
   <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body { margin: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; }
     /* Navbar styling */
@@ -53,7 +54,7 @@ $user_id = $_SESSION['user_id'];
     .page-container h2 { font-family: Anton; font-size: 32px; color: #e74c3c; text-align: center; }
     .post-form { font-family: 'Open Sans';margin-bottom: 2rem; }
     .post-form label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
-    .post-form input, .post-form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; font-family: 'Open Sans'; }
+    .post-form input, .post-form textarea { width: 97%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px; font-family: 'Open Sans'; }
     .post-form button { font-family: Anton; background-color: #e74c3c; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 5px; cursor: pointer; }
     .post-form button:hover { background-color: #c0392b; }
     .posts { font-family: 'Open Sans'; display: flex; flex-direction: column; gap: 1.5rem; }
@@ -75,7 +76,7 @@ $user_id = $_SESSION['user_id'];
     <nav>
         <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="court_bookings.php">BOOK A COURT</a>
-            <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
+            <a href="../php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
         <a href="../php/logout.php" class="btn">LOG OUT</a>
     </nav>
   </div>

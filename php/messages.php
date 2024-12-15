@@ -47,18 +47,23 @@ $stmt->close();
     <title>Your Messages</title>
     <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             background-color: #fff; 
             font-family: 'Open Sans', sans-serif;
             margin: 0;
         }
-
         .navbar {
             font-family: Anton;
             background-color: #000;
             color: #fff;
-            padding: 0.5rem 1rem;
+            padding: 0.09rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -72,8 +77,9 @@ $stmt->close();
         .navbar nav a {
             color: #fff;
             text-decoration: none;
-            font-size: 20px;
+            font-family: Anton;
             padding: 0.5rem 1rem;
+            font-size: 20px;
             border-radius: 5px;
             letter-spacing: 0.05rem;
         }
@@ -83,9 +89,9 @@ $stmt->close();
         }
 
         .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
+            max-width: 65%;
+            margin: 1rem auto;
+            padding: 1rem;
             background: white;
             border: 2px solid black;
             border-radius: 10px;
@@ -135,10 +141,10 @@ $stmt->close();
     <div class="navbar">
           <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
           <nav>
-            <a href="../html/equipment_bookings.php">BOOK EQUIPMENT</a>
-            <a href="../html/court_bookings.php">BOOK A COURT</a>
-            <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>">MY PROFILE</a>
-            <a href="logout.php">LOG OUT</a>
+            <a href="../html/equipment_bookings.php" class="btn">BOOK EQUIPMENT</a>
+            <a href="../html/court_bookings.php" class="btn">BOOK A COURT</a>
+            <a href="profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
+            <a href="logout.php" class="btn">LOG OUT</a>
           </nav>
         </div>
 

@@ -134,7 +134,8 @@ if ($is_own_profile) {
             font-family: 'Open Sans';
             display: flex;
             width: 100%;
-            height: calc(100vh - 120px); 
+            height: calc(100vh - 120px);
+            flex-wrap: wrap; /* Allows wrapping for smaller screens */
         }
 
         /* Left Profile Section */
@@ -240,6 +241,32 @@ if ($is_own_profile) {
             color: black;
             text-decoration: none;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column; /* Stacks the sections vertically */
+                height: auto; /* Adjusts height for stacked layout */
+            }
+
+            .profile-left, 
+            .profile-right {
+                width: 100%; /* Full width for both sections */
+                padding: 20px; /* Adjust padding for smaller screens */
+            }
+
+            .about-section h2 {
+                font-size: 2rem; /* Adjusted font size for mobile screens */
+            }
+
+            .profile-info h1 {
+                font-size: 1.8rem; /* Smaller heading size on mobile */
+            }
+
+            .profile-details li {
+                font-size: 0.9rem; /* Adjusted detail text size */
+            }
+        }
     </style>
 </head>
 <body>
@@ -250,7 +277,7 @@ if ($is_own_profile) {
             <a href="../html/equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="../html/court_bookings.php">BOOK A COURT</a>
             <?php if ($isLoggedIn): ?>
-                <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
+                <a href="profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
                 <a href="logout.php" class="btn">LOG OUT</a>
             <?php else: ?>
                 <a href="login.html" class="btn">LOG IN</a>
