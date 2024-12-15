@@ -45,15 +45,10 @@ $conn->close();
       font-family: Anton;
       background-color: #000;
       color: #fff;
-      padding: 1rem;
+      padding: 0.09rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .navbar h1 {
-      margin: 0;
-      font-size: 24px;
     }
 
     .navbar nav {
@@ -65,28 +60,35 @@ $conn->close();
       color: #fff;
       text-decoration: none;
       font-family: Anton;
-      font-weight: bold;
       padding: 0.5rem 1rem;
+      font-size: 20px;
       border-radius: 5px;
+      letter-spacing: 0.05rem;
     }
 
     .navbar nav a:hover {
       background-color: #ec1b2e;
     }
 
-    /* Main content styling */
     .main-container {
-      text-align: center;
-      padding: 2rem;
-      background-color: #ec1b2e;
-      color: #fff;
-    }
+    font-family: Anton;
+    background-color: #ec1b2e;
+    padding: 55px 10px;
+    text-align: center;
+    color: #ffffff;
+}
 
     .main-container h2 {
-      font-family: Anton;
-      font-size: 36px;
-      margin-bottom: 1rem;
-    }
+    font-family: Anton;
+    font-size: 65px;
+}
+
+    .main-container p {
+    font-size: 24px;
+    margin-top: 20px;
+    font-family: 'Open Sans';
+}
+
 
     .calendar-container {
       max-width: 900px;
@@ -169,8 +171,8 @@ $conn->close();
   </div>
 
   <div class="main-container">
-    <h2>Appointment Dashboard</h2>
-    <p style="font-family:'Open Sans';">Your schedule at a glance</p>
+    <h2>APPOINTMENT DASHBOARD</h2>
+    <p>Your schedule at a glance</p>
   </div>
 
   <!-- Calendar Container -->
