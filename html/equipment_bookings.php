@@ -3,6 +3,7 @@ session_start();
 
 // Check if the user is logged in
 $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
+$user_id = $isLoggedIn ? $_SESSION['user_id'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -135,8 +136,8 @@ $isLoggedIn = isset($_SESSION['user_id']) && isset($_SESSION['session_token']);
           <nav>
             <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="court_bookings.php">BOOK A COURT</a>
-            <a href="#contact">ABOUT</a>
             <?php if ($isLoggedIn): ?>
+              <a href="../php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
             <a href="../php/logout.php" class="btn">LOG OUT</a>
             <?php else: ?>
             <a href="login.html" class="btn">LOG IN</a>

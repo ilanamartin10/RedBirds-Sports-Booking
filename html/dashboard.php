@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
     header("Location: ../html/login.html");
     exit;
 }
+$user_id = $_SESSION['user_id'];
 
 // Validate session token
 include '../php/db_connect.php';
@@ -165,7 +166,7 @@ $conn->close();
     <nav>
         <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="court_bookings.php">BOOK A COURT</a>
-            <a href="#contact">ABOUT</a>
+            <a href="../php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
         <a href="../php/logout.php" class="btn">LOG OUT</a>
     </nav>
   </div>

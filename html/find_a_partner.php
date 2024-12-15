@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../html/login.html");
+    exit;
+}
+
+// Get the logged-in user's ID
+$user_id = $_SESSION['user_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +75,7 @@
     <nav>
         <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="court_bookings.php">BOOK A COURT</a>
-            <a href="#contact">ABOUT</a>
+            <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
         <a href="../php/logout.php" class="btn">LOG OUT</a>
     </nav>
   </div>
