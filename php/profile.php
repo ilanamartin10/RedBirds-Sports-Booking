@@ -299,8 +299,7 @@ if ($is_own_profile) {
                     <li>🎓 Major: <?php echo htmlspecialchars($major); ?></li>
                     <li>📜 Minor: <?php echo htmlspecialchars($minor); ?></li>
                     <?php if ($is_own_profile && $hasMembership): ?>
-                        <li>🏋️ Gym Membership: 
-                    <strong>
+                        <li>🏋️ Gym Membership: <strong>
             <?= $remainingDays > 0 ? "Your membership expires in $remainingDays days" : "Your membership has expired" ?>
         </strong>
                     <?php endif; ?>
