@@ -100,7 +100,6 @@ $user_id = $isLoggedIn ? $_SESSION['user_id'] : null;
             .modal-content {
                 background-color: #ffffff;
                 color: #000000;
-                font-family: 'Open Sans';
             }
 
             .modal-header {

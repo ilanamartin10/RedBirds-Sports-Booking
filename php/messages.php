@@ -137,8 +137,8 @@ $stmt->close();
           <nav>
             <a href="../html/equipment_bookings.php">BOOK EQUIPMENT</a>
             <a href="../html/court_bookings.php">BOOK A COURT</a>
-            <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
-            <a href="logout.php" class="btn">LOG OUT</a>
+            <a href="http://localhost/redbird_bookings/php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>">MY PROFILE</a>
+            <a href="logout.php">LOG OUT</a>
           </nav>
         </div>
 
