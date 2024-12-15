@@ -91,3 +91,12 @@ CREATE TABLE messages (
     FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
 
+-- Gym Memberships 
+CREATE TABLE memberships (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    membership_type VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    purchase_date DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
