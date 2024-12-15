@@ -46,8 +46,7 @@
             display: flex;
             justify-content: space-between; /* Add equal spacing between First and Last Name */
             width: 100%;
-            gap: 50px; /* Increased spacing between First Name and Last Name fields */
-            max-width: 630px;
+            gap: 13%; /* Increased spacing between First Name and Last Name fields */
         }
         .row .form-group {
             flex: 1; /* Equal width for both First and Last Name fields */
@@ -74,7 +73,6 @@
         }
         .full-width {
             width: 100%; /* Take up the full width of the row */
-            max-width: 630px; /* Align stacked fields with the First/Last Name row width */
         }
 
         button {
@@ -93,6 +91,20 @@
         }
         button:hover {
             background-color: darkred;
+        }
+        .footer {
+            margin-top: 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            color: white;
+        }
+        .footer a {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -129,6 +141,9 @@
             </div>
             <button type="submit">Register</button>
         </form>
+        <div class="footer">
+            Already have an account? <a href="../html/login.html">Log in here</a>
+        </div>
     </div>
 </body>
 </html>

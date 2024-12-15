@@ -1,3 +1,29 @@
+<?php
+session_start();
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
+    header("Location: ../html/login.html");
+    exit;
+}
+$user_id = $_SESSION['user_id'];
+
+// Validate session token
+include '../php/db_connect.php';
+$stmt = $conn->prepare("SELECT id FROM user_sessions WHERE user_id = ? AND session_token = ?");
+$stmt->bind_param("is", $_SESSION['user_id'], $_SESSION['session_token']);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows === 0) {
+    header("Location: ../html/login.html");
+    exit;
+}
+
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +34,7 @@
   <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -20,15 +47,10 @@
       font-family: Anton;
       background-color: #000;
       color: #fff;
-      padding: 1rem;
+      padding: 0.09rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .navbar h1 {
-      margin: 0;
-      font-size: 24px;
     }
 
     .navbar nav {
@@ -40,28 +62,35 @@
       color: #fff;
       text-decoration: none;
       font-family: Anton;
-      font-weight: bold;
       padding: 0.5rem 1rem;
+      font-size: 20px;
       border-radius: 5px;
+      letter-spacing: 0.05rem;
     }
 
     .navbar nav a:hover {
-      background-color: #e74c3c;
+      background-color: #ec1b2e;
     }
 
-    /* Main content styling */
     .main-container {
-      text-align: center;
-      padding: 2rem;
-      background-color: #e74c3c;
-      color: #fff;
-    }
+    font-family: Anton;
+    background-color: #ec1b2e;
+    padding: 55px 10px;
+    text-align: center;
+    color: #ffffff;
+}
 
     .main-container h2 {
-      font-family: Anton;
-      font-size: 36px;
-      margin-bottom: 1rem;
-    }
+    font-family: Anton;
+    font-size: 65px;
+}
+
+    .main-container p {
+    font-size: 24px;
+    margin-top: 20px;
+    font-family: 'Open Sans';
+}
+
 
     .calendar-container {
       max-width: 900px;
@@ -78,7 +107,7 @@
     }
 
     .fc-toolbar {
-      background-color: #e74c3c;
+      background-color: #ec1b2e;
       color: #fff;
       border-radius: 8px;
       padding: 0.5rem;
@@ -93,7 +122,7 @@
     }
 
     .fc-toolbar .fc-button:hover {
-      background-color: #c0392b;
+      background-color: #ec1b2e;
     }
 
     .fc-toolbar-title {
@@ -119,7 +148,7 @@
     }
 
     .fc-event {
-      background-color: #e74c3c;
+      background-color: #ec1b2e;
       color: #fff;
       border: none;
       padding: 0.25rem;
@@ -127,26 +156,25 @@
     }
 
     .fc-event:hover {
-      background-color: #c0392b;
+      background-color: #ec1b2e;
     }
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <div class="navbar">
-    <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140" >
-        <nav>
-            <a style="font-family: Anton;" href="#features">FEATURES</a>
-            <a style="font-family: Anton;" href="#about">ABOUT</a>
-            <a style="font-family: Anton;" href="#contact">CONTACT</a>
-            <a style="font-family: Anton;" href="login.html" class="btn">LOG IN</a>
-            <a style="font-family: Anton;" href="signup.html" class="btn">SIGN UP</a>
-        </nav>
+    <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
+    <nav>
+        <a href="equipment_bookings.php">BOOK EQUIPMENT</a>
+            <a href="court_bookings.php">BOOK A COURT</a>
+            <a href="../php/profile.php?user_id=<?= htmlspecialchars($user_id) ?>" class="btn">MY PROFILE</a>
+        <a href="../php/logout.php" class="btn">LOG OUT</a>
+    </nav>
   </div>
 
   <div class="main-container">
-    <h2>Appointment Dashboard</h2>
-    <p style="font-family:'Open Sans';">Your schedule at a glance</p>
+    <h2>APPOINTMENT DASHBOARD</h2>
+    <p>Your schedule at a glance</p>
   </div>
 
   <!-- Calendar Container -->
@@ -160,47 +188,13 @@
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        initialDate: '2024-11-07',
+        initialDate: '2024-12-07',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2024-11-01'
-          },
-          {
-            groupId: 'Game Day',
-            title: 'Repeating Event',
-            start: '2024-11-09T16:00:00'
-          },
-          {
-            groupId: 'Game Day',
-            title: 'Repeating Event',
-            start: '2024-11-16T16:00:00'
-          },
-          {
-            title: 'Tennis Racket Rental',
-            start: '2024-11-11',
-            end: '2024-11-13'
-          },
-          {
-            title: 'Private Training',
-            start: '2024-11-12T12:00:00'
-          },
-    
-          {
-            title: 'Baseball game',
-            start: '2024-11-13T07:00:00'
-          },
-          {
-            title: 'Link to something',
-            url: 'https://google.com/',
-            start: '2024-11-28'
-          }
-        ]
+        events: '../php/fetch_events.php',
       });
 
       calendar.render();

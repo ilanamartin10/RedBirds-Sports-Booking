@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = ""; // default XAMPP password is empty
-$dbname = "gym_app_db"; // use your actual database name
+$dbname = "redbird_bookings"; // use your actual database name
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
