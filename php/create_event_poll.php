@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body>
         <!-- Navbar -->
         <div class="navbar">
-        <a href=“../index.html” class="button">
+        <a href="../index.html" class="button">
                <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
             </a>
             <nav>
