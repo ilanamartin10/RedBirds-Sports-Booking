@@ -122,7 +122,9 @@ $conn->close();
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <img src="../assets/images/logo.png" alt="RedBird Polling Logo" width="180">
+        <a href=“../index.html” class="button">
+            <img src="../assets/images/logo.png" alt="Redbird Bookings Logo" class="logo" width="180" height="140">
+        </a>
     </div>
 
     <!-- Event Details -->
