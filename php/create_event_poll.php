@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Generate the voting link
     $baseUrl = "http://localhost/comp307"; // Update this to match your localhost setup
-    $eventUrl = $baseUrl . "/php/vote_event.php?token=" . urlencode($eventToken);
+    $eventUrl = $baseUrl . "http://marc.infinityfreeapp.com/php/create_event_poll.php?token=" . urlencode($eventToken);
 
     // Display the success message page
     echo <<<HTML
