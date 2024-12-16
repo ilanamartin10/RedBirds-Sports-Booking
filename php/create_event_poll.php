@@ -1,14 +1,12 @@
 <?php
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 
 session_start();
 
-// Database Connection
-$conn = new mysqli("localhost", "root", "", "redbird_bookings");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'db_connect.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -62,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $optionStmt->close();
 
     // Generate the voting link
-    $baseUrl = "http://localhost/comp307"; // Update this to match your localhost setup
-    $eventUrl = $baseUrl . "http://marc.infinityfreeapp.com/php/create_event_poll.php?token=" . urlencode($eventToken);
+    // Generate the voting link for hosted server
+    $baseUrl = "http://marc.infinityfreeapp.com"; // Use your hosted base URL
+    $eventUrl = $baseUrl . "/php/vote_event.php?token=" . urlencode($eventToken);
 
     // Display the success message page
     echo <<<HTML
