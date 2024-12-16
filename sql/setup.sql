@@ -1,7 +1,3 @@
-CREATE DATABASE redbird_bookings;
-
-USE redbird_bookings;
-
 -- Login-related data
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
