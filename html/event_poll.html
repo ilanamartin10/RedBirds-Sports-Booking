@@ -1,140 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>RedBird Polling - Create Event Poll</title>
-    <!-- Update path to CSS if necessary. Assuming event_poll.css is in ../assets/styles/ -->
-    <link rel="stylesheet" href="../assets/styles/event_poll.css">
+    <title>RedBird Polling - Create Private Event Poll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <style>
+        /* Global Styling */
+        body {
+            margin: 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            font-family: Anton;
+            background-color: #000;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            font-family: Anton;
+            padding: 0.5rem 1rem;
+        }
+
+        .main-container {
+            background-color: #ec1b2e;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            font-family: Anton;
+        }
+
+        .event-form-container {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #ec1b2e;
+            text-align: center;
+            font-family: Anton;
+        }
+
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #create-event-btn,
+        #add-datetime-btn {
+            background-color: #ec1b2e;
+            color: #fff;
+            padding: 0.75rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            width: 100%;
+            font-family: Anton;
+            border-radius: 4px;
+        }
+
+        #create-event-btn:hover,
+        #add-datetime-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="../assets/images/logo.png" alt="RedBird Polling Logo" width="180">
+        <nav>
+            <a href="../php/logout.php">LOG OUT</a>
+        </nav>
+    </div>
 
-    <header>
-        <div class="container-fluid">
-            <div class="logo">
-                <!-- Adjust the path to your logo -->
-                <img src="../assets/images/logo.png" alt="RedBird Polling Logo">
-            </div>
-            <nav>
-                <a class="nav-link" href="#features">FEATURES</a>
-                <a class="nav-link" href="#about">ABOUT</a>
-                <a class="nav-link" href="#contact">CONTACT</a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a class="nav-link login-btn" href="../php/logout.php">LOG OUT</a>
-                <?php else: ?>
-                    <a class="nav-link login-btn" href="../html/login.html">LOG IN</a>
-                    <a class="nav-link signup-btn" href="../html/signup.html">SIGN UP</a>
-                <?php endif; ?>
-            </nav>
-        </div>
-    </header>
-    
+    <!-- Hero Section -->
+    <div class="main-container">
+        <h1>CREATE YOUR PRIVATE EVENT POLL</h1>
+        <p>Add event details and date/time options</p>
+    </div>
 
-<section class="event-hero-section">
-    <h1>CREATE YOUR EVENT POLL</h1>
-    <p>Organize events with ease.</p>
-</section>
-
-<!-- Event Creation Form Section -->
-<section class="event-form-section" id="form-section">
+    <!-- Event Creation Form -->
     <div class="event-form-container">
-        <h2>Create Event Poll</h2>
-        <!-- The form now points to create_event_poll.php for processing -->
-        <form id="event-form" method="POST" action="../php/create_event_poll.php">
-            <!-- Event Title -->
+        <h2>Create Private Event</h2>
+        <form method="POST" action="../php/create_event_poll.php">
+            <!-- Event Details -->
             <label for="event-title">Event Title</label>
             <input type="text" id="event-title" name="event-title" placeholder="Enter event title" required>
 
-            <!-- Description -->
             <label for="event-description">Description</label>
-            <textarea id="event-description" name="event-description" placeholder="Enter event description" required></textarea>
+            <textarea id="event-description" name="event-description" placeholder="Event description" required></textarea>
 
-            <!-- Location -->
             <label for="event-location">Location</label>
-            <input type="text" id="event-location" name="event-location" placeholder="Enter location" required>
+            <input type="text" id="event-location" name="event-location" placeholder="Event location" required>
 
-            <!-- Maximum Participants (Optional) -->
-            <label for="max-participants">Maximum Participants (Optional)</label>
-            <input type="number" id="max-participants" name="max-participants" min="1">
-
-            <!-- Date & Time Options -->
-            <h3>Date & Time Options</h3>
+            <label for="datetime-options">Add Date/Time Options</label>
             <div id="datetime-options">
-                <!-- We'll add fields via JS -->
+                <input type="datetime-local" name="datetime-options[]" required>
             </div>
-            <button type="button" id="add-datetime-btn">Add Date/Time Option</button>
+            <button type="button" id="add-datetime-btn">Add More Dates/Times</button>
 
-            <!-- Visibility Settings -->
-            <h3>Visibility Settings</h3>
-            <div class="visibility-options">
-                <button type="button" class="visibility-btn selected" data-value="public">Public</button>
-                <button type="button" class="visibility-btn" data-value="private">Private</button>
-            </div>
-            <div id="private-users" style="display: none;">
-                <label for="private-emails">Enter Emails or Usernames (comma-separated)</label>
-                <textarea id="private-emails" name="private-emails" placeholder="user1@example.com, user2@example.com"></textarea>
-            </div>
-
-            <!-- Hidden field for visibility -->
-            <input type="hidden" name="visibility" value="public">
-
-            <!-- Submission Button -->
-            <button type="submit" id="create-event-btn">Create Event Poll</button>
+            <!-- Submit -->
+            <button type="submit" id="create-event-btn">Create Private Event Poll</button>
         </form>
     </div>
-</section>
 
-<script>
-    // Visibility toggle
-    const visibilityButtons = document.querySelectorAll('.visibility-btn');
-    const privateUsersDiv = document.getElementById('private-users');
-    const visibilityInput = document.querySelector('input[name="visibility"]');
-
-    visibilityButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            visibilityButtons.forEach(btn => btn.classList.remove('selected'));
-            button.classList.add('selected');
-            const val = button.getAttribute('data-value');
-            visibilityInput.value = val;
-            if (val === 'private') {
-                privateUsersDiv.style.display = 'block';
-            } else {
-                privateUsersDiv.style.display = 'none';
-            }
+    <script>
+        // Add More Date/Time Options
+        document.getElementById('add-datetime-btn').addEventListener('click', () => {
+            const container = document.getElementById('datetime-options');
+            const input = document.createElement('input');
+            input.type = 'datetime-local';
+            input.name = 'datetime-options[]';
+            input.required = true;
+            input.classList.add('mt-2');
+            container.appendChild(input);
         });
-    });
-
-    // Add datetime options
-    const addDatetimeBtn = document.getElementById('add-datetime-btn');
-    const datetimeOptionsDiv = document.getElementById('datetime-options');
-
-    if (addDatetimeBtn) {
-        addDatetimeBtn.addEventListener('click', addDatetimeOption);
-    }
-
-    function addDatetimeOption() {
-        const wrapper = document.createElement('div');
-        wrapper.style.marginBottom = '10px';
-        const datetimeInput = document.createElement('input');
-        datetimeInput.type = 'datetime-local';
-        datetimeInput.name = 'datetime-options[]';
-        datetimeInput.required = true;
-
-        const removeBtn = document.createElement('button');
-        removeBtn.type = 'button';
-        removeBtn.textContent = 'Remove';
-        removeBtn.style.marginLeft = '10px';
-        removeBtn.addEventListener('click', () => {
-            wrapper.remove();
-        });
-
-        wrapper.appendChild(datetimeInput);
-        wrapper.appendChild(removeBtn);
-        datetimeOptionsDiv.appendChild(wrapper);
-    }
-
-    // Automatically add one datetime option
-    addDatetimeOption();
-</script>
-
+    </script>
 </body>
+
 </html>

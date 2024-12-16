@@ -114,9 +114,10 @@ CREATE TABLE events (
 );
 
 CREATE TABLE event_options (
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
     event_id INT(11) NOT NULL,
-    option_datetime DATETIME NOT NULL
+    option_datetime DATETIME NOT NULL,
+    vote_count INT(11) NOT NULL DEFAULT 0
 );
 CREATE TABLE event_votes (
     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
